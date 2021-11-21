@@ -1,0 +1,33 @@
+{
+    "members": [
+        {
+            "id": 1,
+            "name":"Nikolaos",
+            "rank":"Supreme Clanleader"
+        },
+        {
+            "id": 2,
+            "name":"Jubei",
+            "rank":"Member"
+
+        },
+        {
+            "id": 3,
+            "name":"Jubei",
+            "rank":"Member"
+
+        },
+        {
+            "id": 4,
+            "name":"Jubei",
+            "rank":"Member"
+
+        },
+        {
+            "id": 5,
+            "name":"Jubei",
+            "rank":"Member"
+
+        }
+    ]
+}
