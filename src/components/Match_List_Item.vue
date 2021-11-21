@@ -15,11 +15,6 @@
 <script>
 import ListEditIcons from './ListEditIcons.vue';
 export default {
-  computed: {
-    link_target() {
-      return('/match/'+this.match_data.date)
-    }
-  },
   name: "MatchListItem",
   props: ["match_data"],
   components: {ListEditIcons},

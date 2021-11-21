@@ -12,10 +12,10 @@ export default {
     name: "MatchList",
     components: { MatchListItem },
     data() {
-    return {
-      myJson: json,
-    };
-  }
+      return {
+        myJson: json,
+      };
+    }
 }
 </script>
 
