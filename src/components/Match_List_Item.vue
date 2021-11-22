@@ -4,8 +4,8 @@
     @mouseover="hover = true"
     @mouseleave="hover = false">
     <span>
-      <router-link :to="{name: 'single_match', params: {date: match_data.date}}"> 
-      {{ match_data.title }} - {{ match_data.map }} - {{ match_data.date }}
+      <router-link :to="{name: 'single_match', params: {id: match_data.id}}"> 
+      {{ match_data.vs }} - {{ match_data.map }} - {{ match_data.date }}
       </router-link>
     </span>
     <ListEditIcons v-if="hover" />

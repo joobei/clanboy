@@ -12,13 +12,9 @@ const routes = [
   {
     path: '/memberlist',
     component: MemberList
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    //component: () => import(/* webpackChunkName: "about" */ '../vue')
   },
   { 
-    path:'/match/:date',
+    path:'/match/:id',
     component: Single_Match,
     name: "single_match",
     props:true
