@@ -1,9 +1,15 @@
 <template>
-  <h1>vs {{ match_info.title }}</h1>
+  <div>
+    <h1>vs {{ match_info.title }}</h1>
+    <FormSchema :schema="schema" v-model="model" @submit.prevent="submit">
+      <button type="submit">Subscribe</button>
+    </FormSchema>
+  </div>
 </template>
 
 <script>
 import json from "../assets/matches.json";
+import FormSchema from "@formschema/native";
 
 export default {
   computed: {
