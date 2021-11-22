@@ -1,16 +1,10 @@
 <template>
   <div id="App">
-    <div id="header" style="display:flex">
-    <img src="./assets/hll_logo.jpeg" style="width:5vw;display:block;margin-left:2vh;"/>
-      <h1 style="margin:auto;">Deemos</h1>
+    <div id="header" style="padding:10px">
+      <router-link to="/matchlist">Match List</router-link> || <router-link to="/Memberlist">Member list</router-link>
     </div>
     <div id="bottom">
-      <div id="left_nav_pane">        
-        <router-link to="/matchlist">Match List</router-link> || <router-link to="/Memberlist">Member list</router-link>
-      </div>
-      <div id="main_content">
         <router-view />
-     </div>
     </div>
   </div> 
 </template>
