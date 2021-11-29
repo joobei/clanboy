@@ -23,6 +23,7 @@
             "type":"string"
         },
         "players":{
+            "title": "who has signed up",
             "description": "Who has signed up for the match",
             "type":"array",
             "items": {

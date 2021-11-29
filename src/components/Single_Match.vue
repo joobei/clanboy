@@ -1,17 +1,21 @@
 <template>
   <div>
     <h1>vs {{ match_info.vs }}</h1>
+    <FormSchema :schema="schema" v-model="model">
+    </FormSchema>
   </div>
 </template>
 
 <script>
 import json from "../assets/matches.json";
+import FormSchema from "@formschema/native";
 
 export default {
-  methods: {
-    submit() {
-      //submit here
-    },
+  data: () => ({
+    schema: require('@/assets/matches.schema.json'),
+    model: {},
+  }),
+  methods: { 
   },
   computed: {
     match_info() {
