@@ -53,7 +53,7 @@ const mutations = {
             refreshToken: data.refresh_token,
             tokenExp: jwtDecodedValue.exp,
             userId: jwtDecodedValue.sub,
-            userName: jwtDecodedValue.userName,
+            userName: jwtDecodedValue.username,
             //userName: 'jubei'
         };
         state.authData = newTokenData;
