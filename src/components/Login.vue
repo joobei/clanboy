@@ -28,7 +28,7 @@
   </div>
 </template>
 
-    <script>
+<script>
 import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Login_form",
@@ -49,11 +49,11 @@ export default {
     }),
     async login() {
       await this.actionLogin({
-        username: this.username,
+        userName: this.username,
         password: this.password,
       });
       if (this.getterLoginStatus === "success") {
-        alert("login sucess");
+        this.$router.push("/dashboard");
       } else {
         alert("failed to login");
       }

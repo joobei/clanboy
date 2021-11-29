@@ -1,6 +1,8 @@
 <template>
     <div>
-        <h4>Home Page</h4>
+        <h1>Home Page</h1>
+        <p>Welcome to Deemos Home Page</p>
+        <router-link to='/dashboard'>Dashboard</router-link>
     </div>
 </template>
 <script>

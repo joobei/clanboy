@@ -1,3 +1,6 @@
+import { tokenAlive } from "../../shared/jwtHelper";
+import { jwtDecrypt } from "../../shared/jwtHelper";
+
 const state = () => ({
     authData: {
         token: "",
@@ -9,9 +12,19 @@ const state = () => ({
     loginStatus: "",
 });
 
+
 const getters = {
+    getAuthData(state) {
+        return state.authData;
+    },
     getLoginStatus(state) {
         return state.loginStatus;
+    },
+    isTokenActive(state) {
+        if (!state.authData.tokenExp) {
+            return false;
+        }
+        return tokenAlive(state.authData.tokenExp);
     }
 };
 
@@ -27,7 +40,6 @@ const actions = {
     },
 };
 
-import { jwtDecrypt } from "../../shared/jwtHelper";
 
 const mutations = {
     saveTokenData(state, data) {
@@ -42,6 +54,7 @@ const mutations = {
             tokenExp: jwtDecodedValue.exp,
             userId: jwtDecodedValue.sub,
             userName: jwtDecodedValue.userName,
+            //userName: 'jubei'
         };
         state.authData = newTokenData;
     },
@@ -49,6 +62,7 @@ const mutations = {
         state.loginStatus = value;
     }
 };
+
 
 export default {
     namespaced: true,
