@@ -16,7 +16,7 @@ const routes = [
   {
     path: '/dashboard',
     component: DashBoard,
-    // meta: { requiredAuth: true }
+    meta: { requiredAuth: true }
   },
   {
     path: '/matchlist',
