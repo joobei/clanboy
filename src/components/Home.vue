@@ -1,13 +1,26 @@
 <template>
-    <div>
-        <h1>Home Page</h1>
-        <p>Welcome to Deemos Home Page</p>
-        <router-link to='/dashboard'>Dashboard</router-link>
-    </div>
+  <div class="container">
+    <h1>Constitution</h1>
+    <small class="text-muted">The document that keeps the motor runing</small>
+    <ol style="margin-top:40px">
+      <li>
+        Freedom of speech and expression. Freedom to propose changes to the
+        constitution.
+      </li>
+      <li>
+        Deemos is an HLL community that aims to be competitive while valuing
+        kindness, participation, meritocracy, transparency and diversity!
+      </li>
+      <li>
+        Deemos aims to avoid concentration power by emulating a three-branch
+        government system. Executive, Legislative, Judicial. All positions are
+        elected.
+      </li>
+    </ol>
+  </div>
 </template>
 <script>
 export default {
-    name: "HomePage"
-    
-}
+  name: "HomePage",
+};
 </script>
