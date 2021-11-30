@@ -20,7 +20,8 @@ const routes = [
   },
   {
     path: '/matchlist',
-    component: MatchList
+    component: MatchList,
+    meta: { requiredAuth: true }
   },
   {
     path: '/login',
@@ -29,13 +30,15 @@ const routes = [
   },
   {
     path: '/memberlist',
-    component: MemberList
+    component: MemberList,
+    meta: { requiredAuth: true }
   },
   {
     path: '/match/:id',
     component: Single_Match,
     name: "single_match",
-    props: true
+    props: true,
+    meta: { requiredAuth: true }
   }
 ]
 
