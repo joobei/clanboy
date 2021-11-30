@@ -10,6 +10,12 @@
             <li class="nav-item">
               <router-link to="/login" class="nav-link">Login</router-link>
             </li>
+            <li class="nav-item">
+              <router-link to="/dashboard" class="nav-link">Dashboard</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/matchlist" class="nav-link">Match List</router-link>
+            </li>
           </ul>
         </div>
       </div>
@@ -25,7 +31,6 @@ export default {
 };
 </script>
 
-
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -33,18 +38,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
 }
 </style>
