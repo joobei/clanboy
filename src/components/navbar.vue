@@ -4,19 +4,27 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <router-link to="/" class="nav-link">Home</router-link>
+            <router-link to="/" class="nav-link">
+              <font-awesome-icon icon="home" /> Home
+            </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/login" class="nav-link">Login</router-link>
+            <router-link to="/login" class="nav-link">
+              <font-awesome-icon icon="right-to-bracket"/>
+              Login</router-link
+            >
           </li>
           <li class="nav-item">
-            <router-link to="/dashboard" class="nav-link"
-              >Dashboard</router-link
+            <router-link to="/dashboard" class="nav-link">
+              <font-awesome-icon icon="gauge" />
+              Dashboard</router-link
             >
           </li>
           <li class="nav-item">
             <router-link to="/matchlist" class="nav-link"
-              >Match List</router-link
+              >
+              <font-awesome-icon icon="list" />
+              Match List</router-link
             >
           </li>
         </ul>
