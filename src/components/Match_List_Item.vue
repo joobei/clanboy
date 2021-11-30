@@ -8,16 +8,16 @@
       {{ match_data.vs }} - {{ match_data.map }} - {{ match_data.date }}
       </router-link>
     </span>
-    <ListEditIcons v-if="hover" />
+    <!-- <ListEditIcons v-if="hover" /> -->
   </div>
 </template>
 
 <script>
-import ListEditIcons from './ListEditIcons.vue';
+// import ListEditIcons from './ListEditIcons.vue';
 export default {
   name: "MatchListItem",
   props: ["match_data"],
-  components: {ListEditIcons},
+  // components: {ListEditIcons},
   data() {
     return {
       hover: false,
