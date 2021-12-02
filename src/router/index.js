@@ -69,7 +69,8 @@ router.beforeEach((to, from, next) => {
       return next({ path: "/dashboard" });
   }
   else if (!auth && to.meta.requiredAuth) {
-      return next({ path: '/login' });
+    alert("login required");  
+    return next({ path: '/login' });
   }
 
   return next();
