@@ -8,11 +8,18 @@
               <font-awesome-icon icon="home" /> Home
             </router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="!logged_in">
             <router-link to="/login" class="nav-link">
-              <font-awesome-icon icon="right-to-bracket"/>
+              <font-awesome-icon icon="right-to-bracket" />
               Login</router-link
             >
+          </li>
+          <li
+            class="nav-item nav-link"
+            v-if="logged_in"
+            @click="clear_storage()"
+          >
+            <font-awesome-icon icon="right-from-bracket" />Logout
           </li>
           <li class="nav-item">
             <router-link to="/dashboard" class="nav-link">
@@ -21,8 +28,7 @@
             >
           </li>
           <li class="nav-item">
-            <router-link to="/matchlist" class="nav-link"
-              >
+            <router-link to="/matchlist" class="nav-link">
               <font-awesome-icon icon="list" />
               Match List</router-link
             >
@@ -34,8 +40,23 @@
 </template>
 
 <script>
+import store from '../store/index'
+
 export default {
   name: "NavBar",
   setup() {},
+  methods: {
+    clear_storage() {
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
+      store.commit("auth/clearLoginData");
+      this.$router.push("/login");
+    },
+  },
+  computed: {
+      logged_in() {
+        return store.getters["auth/isTokenActive"];
+      }
+    }
 };
 </script>

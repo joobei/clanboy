@@ -9,7 +9,7 @@ const state = () => ({
         userId: "",
         userName: "",
     },
-    loginStatus: "",
+    loginStatus: "undefined",
 });
 
 
@@ -38,6 +38,10 @@ const actions = {
         commit('saveTokenData', data);
         commit('setLoginStatu', 'success');
     },
+    logout({commit}) {
+        commit('clearLoginData');
+        commit('setLoginStatu', 'failed');
+    }
 };
 
 
@@ -53,13 +57,24 @@ const mutations = {
             refreshToken: data.refresh_token,
             tokenExp: jwtDecodedValue.exp,
             userId: jwtDecodedValue.sub,
-            userName: jwtDecodedValue.username,
-            //userName: 'jubei'
+            userName: jwtDecodedValue.username
         };
         state.authData = newTokenData;
     },
     setLoginStatu(state, value) {
         state.loginStatus = value;
+    },
+    clearLoginData(state) {
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        const newTokenData = {
+            token: "",
+            refreshToken: "",
+            tokenExp: "",
+            userId: "",
+            userName: ""
+        };
+        state.authData =  newTokenData;
     }
 };
 

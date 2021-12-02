@@ -4,9 +4,10 @@ import router from './router'
 import store from './store/index'
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faHouse, faRightToBracket, faGauge, faList, faBank } from "@fortawesome/free-solid-svg-icons";
+import { faHouse, faRightToBracket, faGauge, faList, faBank, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 library.add(faHouse);
 library.add(faRightToBracket);
+library.add(faRightFromBracket);
 library.add(faGauge);
 library.add(faList);
 library.add(faBank);

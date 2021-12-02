@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-sm">
     <h4>Login Form</h4>
     <form>
       <div class="mb-3">
