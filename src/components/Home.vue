@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-sm" style="padding-top:30px">
     <font-awesome-icon icon="bank" size="4x"/>
     <h1>Constitution</h1>
     <small class="text-muted">The document that keeps the motor runing</small>

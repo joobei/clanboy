@@ -1,5 +1,5 @@
     <template>
-  <div>
+  <div class="container-sm">
     <h1>Dashboard Page</h1>
     <div>UserName -- {{ gettersAuthData.userName }}</div>
     <div>Id -- {{ gettersAuthData.userId }}</div>
