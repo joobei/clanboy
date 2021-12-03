@@ -1,8 +1,6 @@
 <template>
   <div class="container">
     <h1>vs {{ match_info.vs }}</h1>
-    <FormSchema :schema="schema" v-model="model">
-    </FormSchema>
   </div>
 </template>
 
