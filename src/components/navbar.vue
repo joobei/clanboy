@@ -22,7 +22,7 @@
             >
           </li>
           <li
-            class="nav-item nav-link"
+            class="nav-item nav-link" style="cursor:pointer"
             v-if="logged_in"
             @click="clear_storage()"
           >
