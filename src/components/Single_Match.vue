@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <h1>vs {{ match_info.vs }}</h1>
     <FormSchema :schema="schema" v-model="model">
     </FormSchema>
@@ -8,13 +8,8 @@
 
 <script>
 import json from "../assets/matches.json";
-import FormSchema from "@formschema/native";
 
 export default {
-  data: () => ({
-    schema: require('@/assets/matches.schema.json'),
-    model: {},
-  }),
   methods: { 
   },
   computed: {
