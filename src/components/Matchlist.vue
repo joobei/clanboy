@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-sm">
     <div v-for="data in myJson.matches" v-bind:key="data.date">
       <MatchListItem v-bind:match_data="data" />
     </div>

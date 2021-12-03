@@ -1,8 +1,10 @@
 # clanboy
 
+Clanboy is a clan management website initially designed for Hell Let Loose, can be adapted to any clan.
+
 ## Project setup
 ```
-npm install
+npm ci
 ```
 
 ### Compiles and hot-reloads for development
