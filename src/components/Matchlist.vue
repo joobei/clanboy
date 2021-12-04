@@ -5,7 +5,7 @@
       <MatchListItem
         :class="{
           'rounded bg-light text-dark': index % 2 === 0,
-          'rounded bg-dark text-light': index % 2 !== 0,
+          'rounded bg-secondary text-light': index % 2 !== 0,
         }"
         v-for="(data, index) in myJson.matches"
         :key="index"
