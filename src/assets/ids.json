@@ -1,0 +1,16 @@
+{
+    "members": [
+        {
+            "id": 1,
+            "name":"joobei",
+            "password":"amataro",
+            "rank":"koc"
+        },
+        {
+            "id": 2,
+            "name":"jubei",
+            "password":"amataro",
+            "rank":"Member"
+        }
+    ]
+}
