@@ -6,6 +6,13 @@
             "map": "FOY",
             "date": "2021-11-30T21:00:00.511Z",
             "players": [ "jubei#1233", "marcmay#1553", "roberto#5616" ]
+        },
+        {
+            "id":2,
+            "vs": "Squad Line Battle",
+            "map": "Hürtgen Forest",
+            "date": "2021-12-7T21:00:00.511Z",
+            "players": [ "jubei#1233", "marcmay#1553", "roberto#5616" ]
         }
     ]
 }

@@ -1,13 +1,15 @@
 <template>
-  <div
-    class="listing"
-    @mouseover="hover = true"
-    @mouseleave="hover = false">
-    <span>
-      <router-link :to="{name: 'single_match', params: {id: match_data.id}}"> 
-      {{ match_data.vs }} - {{ match_data.map }} - {{ match_data.date }}
-      </router-link>
-    </span>
+  <div class="container-sm">
+    <router-link :to="{ name: 'single_match', params: { id: match_data.id } }">
+      <div
+        class="border rounded"
+        @mouseover="hover = true"
+        @mouseleave="hover = false"
+      >
+        {{ match_data.vs }} - {{ match_data.map }} - {{ match_data.date }}
+      </div>
+    </router-link>
+
     <!-- <ListEditIcons v-if="hover" /> -->
   </div>
 </template>
@@ -23,6 +25,6 @@ export default {
       hover: false,
       ready: false,
     };
-  }
+  },
 };
 </script>

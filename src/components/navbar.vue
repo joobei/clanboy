@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-sm navbar-light bg-light">
     <div class="container-fluid">
-      <!-- <a class="navbar-brand" href="#">Deemos</a> -->
+      <a class="navbar-brand" href="#">Deemos</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -23,13 +23,12 @@
           </li>
           <li class="nav-item" v-if="!logged_in">
             <router-link to="/login" class="nav-link">
-              <font-awesome-icon icon="right-to-bracket" />
+              <font-awesome-icon icon="right-to-bracket"/>
               Login</router-link
             >
           </li>
           <li
-            class="nav-item nav-link"
-            style="cursor: pointer"
+            class="nav-item nav-link" style="cursor: pointer;"
             v-if="logged_in"
             @click="clear_storage()"
           >

@@ -1,5 +1,6 @@
 import { tokenAlive } from "../../shared/jwtHelper";
-import { jwtDecrypt } from "../../shared/jwtHelper";
+// import { jwtDecrypt } from "../../shared/jwtHelper";
+import members from "@/assets/ids.json";
 
 const state = () => ({
     authData: {
@@ -34,6 +35,15 @@ const actions = {
         const data = {
             access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3QiLCJzdWIiOjIsImlhdCI6MTYwNDMwOTc0OSwiZXhwIjoxNjA0MzA5ODA5fQ.jHez9kegJ7GT1AO5A2fQp6Dg9A6PBmeiDW1YPaCQoYs",
             refresh_token: ""
+        };
+
+        if (members.members.find(user => user.name === payload.userName) && members.members.find(user => user.password === payload.password)) 
+        {
+            commit('setLoginStatu', 'success');
+            commit('saveTokenData', data);
+        }
+        else {    
+            commit('setLoginStatu', 'failed');
         }
         commit('saveTokenData', data);
         commit('setLoginStatu', 'success');
@@ -51,13 +61,13 @@ const mutations = {
         localStorage.setItem("access_token", data.access_token);
         localStorage.setItem("refresh_token", data.refresh_token);
 
-        const jwtDecodedValue = jwtDecrypt(data.access_token);
+        // const jwtDecodedValue = jwtDecrypt(data.access_token);
         const newTokenData = {
-            token: data.access_token,
-            refreshToken: data.refresh_token,
-            tokenExp: jwtDecodedValue.exp,
-            userId: jwtDecodedValue.sub,
-            userName: jwtDecodedValue.username
+            token: "blah",
+            refreshToken: "blah",
+            tokenExp: Date.now()*4999,
+            userId: "nikolaos",
+            userName: "weird"
         };
         state.authData = newTokenData;
     },
