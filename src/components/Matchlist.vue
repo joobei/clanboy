@@ -1,8 +1,11 @@
 <template>
   <div class="container-sm">
-    <div v-for="data in myJson.matches" v-bind:key="data.date">
-      <MatchListItem v-bind:match_data="data" />
-    </div>
+    <h1>Upcoming Match</h1>
+    <dl class="row">
+      <div :class="{'rounded bg-light': index%2===0, 'rounded bg-dark': index%2!==0}" v-for="(data,index) in myJson.matches" :key="index">
+        <MatchListItem v-bind:match_data="data" />
+      </div>
+    </dl>
   </div>
 </template>
 
@@ -15,7 +18,7 @@ export default {
   components: { MatchListItem },
   data() {
     return {
-      myJson: json,
+      myJson: json
     };
   },
 };

@@ -1,17 +1,10 @@
 <template>
-  <div class="container-sm">
-    <router-link :to="{ name: 'single_match', params: { id: match_data.id } }">
-      <div
-        class="border rounded"
-        @mouseover="hover = true"
-        @mouseleave="hover = false"
-      >
-        {{ match_data.vs }} - {{ match_data.map }} - {{ match_data.date }}
-      </div>
-    </router-link>
-
-    <!-- <ListEditIcons v-if="hover" /> -->
-  </div>
+  <router-link :to="{ name: 'single_match', params: { id: match_data.id } }">
+    <dt class="col-sm-3">{{ match_data.vs }}</dt>
+    <dd class="col-sm-9">
+      {{ match_data.map }} - {{ match_data.date }}
+    </dd>
+  </router-link>
 </template>
 
 <script>
