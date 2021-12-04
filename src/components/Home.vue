@@ -1,5 +1,5 @@
 <template>
-  <div class="container-sm" style="padding-top: 30px">
+  <div class="container-sm" style="padding-top: 30px;padding-left:40px;padding-right:40px;max-width:530px">
     <div class="d-flex flex-column align-items-center">
       <font-awesome-icon icon="bank" size="4x" />
       <h1>Constitution</h1>
