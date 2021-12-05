@@ -18,9 +18,9 @@
       </dd>
       <dt class="col-sm-3">3. Balance</dt>
       <dd class="col-sm-9">
-        Deemos will avoid concentration power by emulating a three-branch
+        Deemos will avoid concentration of power by emulating a three-branch
         government system. Executive, Legislative, Judicial. All positions are
-        elected.
+        to be elected.
       </dd>
     </dl>
   </div>
