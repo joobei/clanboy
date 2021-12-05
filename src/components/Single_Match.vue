@@ -5,9 +5,36 @@
       <dt class="col-sm-3">Map</dt>
       <dd class="col-sm-9">{{ match_info.map }}</dd>
       <dt class="col-sm-3">Date</dt>
-      <dd class="col-sm-9">{{ isoFormatDMY(parseISOString(match_info.date)) }}</dd>
-      <!-- <dt class="col-sm-3"></dt> -->
+      <dd class="col-sm-9">
+        {{ isoFormatDMY(parseISOString(match_info.date)) }}
+      </dd>
+      <dt class="col-sm-3">Side</dt>
+      <dd class="col-sm-9">{{ match_info.side }}</dd>
+      <dt class="col-sm-3">Attendees</dt>
+      <dd class="col-sm-9">{{ match_info.players }}</dd>
+      <dt class="col-sm-3">Reserves</dt>
+      <dd class="col-sm-9">{{ match_info.reserves }}</dd>
+      <dt class="col-sm-3">Outcome</dt>
+      <dd class="col-sm-9">{{ match_info.outcome }}</dd>
     </dl>
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-toggle="button"
+      aria-pressed="false"
+      autocomplete="off"
+    >
+      Sign Myself Up
+    </button>
+    <button
+      type="button"
+      class="btn btn-secondary"
+      data-toggle="button"
+      aria-pressed="false"
+      autocomplete="off"
+    >
+      Bring a Squad
+    </button>
   </div>
 </template>
 
@@ -25,8 +52,11 @@ export default {
         "/" +
         pad(d.getUTCMonth() + 1) +
         "/" +
-        d.getUTCFullYear()
-        + ' - ' + d.getUTCHours() + ':' + d.getUTCMinutes()
+        d.getUTCFullYear() +
+        " - " +
+        d.getUTCHours() +
+        ":" +
+        d.getUTCMinutes()
       );
     },
     parseISOString(s) {

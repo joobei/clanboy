@@ -5,8 +5,9 @@
             "vs": "Squad Line Battle",
             "map": "FOY",
             "date": "2021-11-30T21:00:00.511Z",
+            "slots": 2,
             "players": [ "jubei#5182", "Roberto Lo Giacco#0522" ],
-            "side": "axis",
+            "side": "Axis",
             "outcome": "victory"
         },
         {
@@ -14,9 +15,10 @@
             "vs": "Squad Line Battle",
             "map": "Hürtgen Forest",
             "date": "2021-12-7T21:00:00.511Z",
+            "slots": 2,
             "players": [ "marcmay#4677", "Roberto Lo Giacco#0522" ],
-            "side": "",
-            "outcome": ""
+            "side": "Axis",
+            "outcome": "TBD"
         }
     ]
 }
