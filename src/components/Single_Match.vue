@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>vs {{ match_info.vs }}</h1>
+    <h1>{{ match_info.vs }}</h1>
     <dl class="row">
       <dt class="col-sm-3">Map</dt>
       <dd class="col-sm-9">{{ match_info.map }}</dd>
