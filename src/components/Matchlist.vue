@@ -2,7 +2,7 @@
   <div class="container">
     <h3 style="margin-top:20px">Upcoming Match</h3>
     <dl class="row">
-      <MatchListItem
+      <MatchListItem style="margin-bottom:1em"
         :class="{
           'rounded bg-light text-dark': index % 2 === 0,
           'rounded bg-secondary text-light': index % 2 !== 0,
