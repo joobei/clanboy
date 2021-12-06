@@ -2,7 +2,9 @@ const { MongoClient } = require('mongodb');
 
 
 async function main() {
-    const uri = "mongodb+srv://letloose:amataro@deemoscluster.c3sjh.mongodb.net/sample_airbnb?retryWrites=true&w=majority"
+    var fs = require('fs');
+    const uri = fs.readFileSync("./backend/key.txt", 'utf8');
+
     const client = new MongoClient(uri);
 
     try {
