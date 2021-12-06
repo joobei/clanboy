@@ -1,1 +1,0 @@
-mongodb+srv://username:password@deemoscluster.c3sjh.mongodb.net/deemos?retryWrites=true&w=majority
