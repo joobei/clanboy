@@ -39,9 +39,15 @@
 </template>
 
 <script>
-// import json from "../assets/matches.json";
+import axios from "axios";
 
 export default {
+  name: "Single_Match",
+  data() {
+    return {
+      match_info: "",
+    };
+  },
   methods: {
     isoFormatDMY(d) {
       function pad(n) {
@@ -64,13 +70,12 @@ export default {
       return new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
     },
   },
-  // computed: {
-  //   match_info() {
-  //     return json.matches.find(
-  //       (match) => match.id === parseInt(this.$route.params.id)
-  //     );
-  //   },
-  // },
-  name: "Single_Match",
+  created() {
+    axios.get("http://localhost:5000/matches").then((response) => {
+      this.match_info = response.data.find(
+        (element) => element._id === this.$route.params.id
+      );
+    });
+  },
 };
 </script>
