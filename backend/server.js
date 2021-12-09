@@ -14,9 +14,9 @@ app.use(express.json());
 app.use(require("./record"));
 
 // Global error handling
-app.use(function (err, _req, res) {
+app.use(function (err, _req, res, next) {
   console.error(err.stack);
-  res.status(500).send('Something broke!');
+  res.status(500).send('Something broke!').next();
 });
 
 // perform a database connection when the server starts

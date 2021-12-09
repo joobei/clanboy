@@ -14,7 +14,7 @@ recordRoutes.route("/matches").get(async function (req, res) {
         .find({}).limit(50)
         .toArray(function (err, result) {
             if (err) {
-                res.status(400).send("Error fetching listings!");
+                res.status(400).send("Error fetching matches!");
             } else {
                 res.json(result);
             }
