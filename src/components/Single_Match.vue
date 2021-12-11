@@ -71,7 +71,7 @@ export default {
     },
   },
   created() {
-    axios.get("https://deemos-back-end.onrender.com/matches").then((response) => {
+    axios.get("https://back-end-s8ks.onrender.com/matches").then((response) => {
       this.match_info = response.data.find(
         (element) => element._id === this.$route.params.id
       );
