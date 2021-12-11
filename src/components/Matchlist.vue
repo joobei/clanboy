@@ -32,7 +32,7 @@ export default {
     };
   },
   created() {
-    axios.get("http://localhost:5000/matches")
+    axios.get("http://localhost:10000/matches")
     .then(response =>
     { 
       this.matchData = response.data;
