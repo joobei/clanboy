@@ -32,7 +32,7 @@ export default {
     };
   },
   created() {
-    axios.get("http://localhost:10000/matches")
+    axios.get("https://deemos-back-end.onrender.com/matches")
     .then(response =>
     { 
       this.matchData = response.data;
