@@ -12,6 +12,9 @@ import NavBar from "@/components/navbar.vue"
 export default {
   name: "App",
   components: { NavBar },
+  created() {
+    this.$store.dispatch('match/loadMatches');
+  },
 };
 </script>
 
