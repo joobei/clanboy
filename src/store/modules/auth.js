@@ -1,5 +1,4 @@
 import { tokenAlive } from "../../shared/jwtHelper";
-// import { jwtDecrypt } from "../../shared/jwtHelper";
 import members from "@/assets/ids.json";
 
 const state = () => ({
@@ -31,7 +30,6 @@ const getters = {
 
 const actions = {
     async login({ commit }, payload) {
-        console.log(payload);
         const data = {
             access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3QiLCJzdWIiOjIsImlhdCI6MTYwNDMwOTc0OSwiZXhwIjoxNjA0MzA5ODA5fQ.jHez9kegJ7GT1AO5A2fQp6Dg9A6PBmeiDW1YPaCQoYs",
             refresh_token: ""
@@ -63,8 +61,8 @@ const mutations = {
 
         // const jwtDecodedValue = jwtDecrypt(data.access_token);
         const newTokenData = {
-            token: "blah",
-            refreshToken: "blah",
+            token: "auth_token_data",
+            refreshToken: "auth_token_blah",
             tokenExp: Date.now()*4999,
             userId: "nikolaos",
             userName: "weird"

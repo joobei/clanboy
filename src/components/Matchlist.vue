@@ -21,6 +21,7 @@ import MatchListItem from "./Match_List_Item.vue";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
+  components: { MatchListItem },
   data() {
     return {
       matchData: '',
@@ -38,7 +39,6 @@ export default {
       forceLoadMatches: "loadMatches",
     }),
   },
-  components: { MatchListItem },
   created() {
     this.matchData = this.getMatches;
     this.forceLoadMatches();

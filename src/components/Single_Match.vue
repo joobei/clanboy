@@ -39,13 +39,11 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "Single_Match",
   data() {
     return {
-      match_info: "",
+      match_info: [],
     };
   },
   methods: {
@@ -70,12 +68,15 @@ export default {
       return new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
     },
   },
+  computed: {
+    getMatches() {
+      return this.$store.getters['match/getMatchData'];
+    }
+  },
   created() {
-    axios.get("https://back-end-s8ks.onrender.com/matches").then((response) => {
-      this.match_info = response.data.find(
-        (element) => element._id === this.$route.params.id
-      );
-    });
+    this.match_info = this.getMatches.find(
+      (element) => element._id === this.$route.params.id
+    );
   },
 };
 </script>
