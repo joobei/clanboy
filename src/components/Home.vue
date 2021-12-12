@@ -1,7 +1,7 @@
 <template>
   <div class="container-sm" style="padding-top: 30px;padding-left:40px;padding-right:40px;max-width:530px">
     <div class="d-flex flex-column align-items-center">
-      <font-awesome-icon icon="bank" size="4x" />
+      <img alt="deemos logo" src="@/assets/logo.png" class="img-fluid" width="500px"/>
       <h1>Constitution</h1>
       <small class="text-muted">The document that keeps the motor runing</small>
     </div>
