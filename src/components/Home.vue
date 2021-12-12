@@ -1,7 +1,7 @@
 <template>
   <div class="container-sm" style="padding-top: 30px;padding-left:40px;padding-right:40px;max-width:530px">
     <div class="d-flex flex-column align-items-center">
-      <img alt="deemos logo" src="@/assets/logo.png" class="img-fluid" width="500px"/>
+      <img alt="deemos logo" src="@/assets/logo.png" class="mx-auto" style="width:150px"/>
       <h1>Constitution</h1>
       <small class="text-muted">The document that keeps the motor runing</small>
     </div>
@@ -16,7 +16,7 @@
        We are here to have fun but also aim to be competitive while valuing
         kindness, participation, meritocracy, transparency and diversity.
       </dd>
-      <dt class="col-sm-3">3. Balance</dt>
+      <dt class="col-sm-3">3. Fairness</dt>
       <dd class="col-sm-9">
         Deemos will avoid concentration of power by emulating a three-branch
         government system. Executive, Legislative, Judicial. All positions are
