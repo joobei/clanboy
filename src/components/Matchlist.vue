@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <!-- <h3 style="margin-top: 20px">Upcoming Match</h3>
+    <h3 style="margin-top: 20px">Upcoming Match</h3>
     <dl class="row">
       <MatchListItem
         style="margin-bottom: 1em"
@@ -8,21 +8,27 @@
           'rounded bg-light text-dark': index % 2 === 0,
           'rounded bg-secondary text-light': index % 2 !== 0,
         }"
-         v-for="(data, index) in matchData"
+         v-for="(data, index) in getMatches"
         :key="index"
         v-bind:match_data="data"
       />
-    </dl> -->
+    </dl>
     <h2>raw data</h2>
     {{ getMatches }}
   </div>
 </template>
 
 <script>
-// import MatchListItem from "./Match_List_Item.vue";
+import MatchListItem from "./Match_List_Item.vue";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
+  data() {
+    return {
+      matchData: '',
+      loading: false
+    };
+  },
   name: "MatchList",
   computed: {
     ...mapGetters("match", {
@@ -34,8 +40,9 @@ export default {
       forceLoadMatches: "loadMatches",
     }),
   },
-  // components: { MatchListItem },
+  components: { MatchListItem },
   created() {
+    this.matchData = this.getMatches;
     this.forceLoadMatches();
   },
 };
