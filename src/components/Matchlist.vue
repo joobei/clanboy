@@ -13,8 +13,6 @@
         v-bind:match_data="data"
       />
     </dl>
-    <h2>raw data</h2>
-    {{ getMatches }}
   </div>
 </template>
 
