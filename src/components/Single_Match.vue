@@ -43,7 +43,7 @@ export default {
   name: "Single_Match",
   data() {
     return {
-      match_info: [],
+      match_info: '',
     };
   },
   methods: {
