@@ -1,7 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-sm navbar-light bg-light">
     <div class="container-fluid">
-      <!-- <a class="navbar-brand" href="#">Deemos</a> -->
       <button
         class="navbar-toggler"
         type="button"

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h3 style="margin-top: 20px">Upcoming Match</h3>
+    <!-- <h3 style="margin-top: 20px">Upcoming Match</h3>
     <dl class="row">
       <MatchListItem
         style="margin-bottom: 1em"
@@ -12,31 +12,31 @@
         :key="index"
         v-bind:match_data="data"
       />
-    </dl>
-    <!-- <h2> raw data </h2>
-    {{ matchData }} -->
+    </dl> -->
+    <h2>raw data</h2>
+    {{ getMatches }}
   </div>
 </template>
 
 <script>
-import MatchListItem from "./Match_List_Item.vue";
-import axios from "axios";
+// import MatchListItem from "./Match_List_Item.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "MatchList",
-  components: { MatchListItem },
-  data() {
-    return {
-      matchData: '',
-      loading: false
-    };
+  computed: {
+    ...mapGetters("match", {
+      getMatches: "getMatchData",
+    }),
   },
+  methods: {
+    ...mapActions("match", {
+      forceLoadMatches: "loadMatches",
+    }),
+  },
+  // components: { MatchListItem },
   created() {
-    axios.get("https://back-end-s8ks.onrender.com/matches")
-    .then(response =>
-    { 
-      this.matchData = response.data;
-    });
-  }
+    this.forceLoadMatches();
+  },
 };
 </script>
