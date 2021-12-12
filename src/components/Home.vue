@@ -23,6 +23,7 @@
         to be elected.
       </dd>
     </dl>
+    <a href="https://discord.gg/mSqPUzg7kt"><img src="@/assets/discord_logo.png" style="display:block;width:150px;margin-left:auto;margin-right:auto" target="new"/></a>
   </div>
 </template>
 <script>
