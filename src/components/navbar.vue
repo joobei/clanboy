@@ -17,33 +17,38 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
             <router-link to="/" class="nav-link">
-              <font-awesome-icon icon="home" /> Home
+              <!-- <font-awesome-icon icon="home" />  -->Home
             </router-link>
           </li>
-          <li class="nav-item" v-if="!logged_in">
+          <li class="nav-item" v-if="!isLoggedIn">
             <router-link to="/login" class="nav-link">
-              <font-awesome-icon icon="right-to-bracket"/>
+              <!-- <font-awesome-icon icon="right-to-bracket" /> -->
               Login</router-link
             >
           </li>
           <li
-            class="nav-item nav-link" style="cursor: pointer;"
-            v-if="logged_in"
-            @click="clear_storage()"
+            class="nav-item nav-link"
+            style="cursor: pointer"
+            v-if="isLoggedIn"
+            @click="logout"
           >
-            <font-awesome-icon icon="right-from-bracket" />Logout
+            <!-- <font-awesome-icon icon="right-from-bracket" />-->
+            Logout
           </li>
           <li class="nav-item">
             <router-link to="/dashboard" class="nav-link">
-              <font-awesome-icon icon="gauge" />
+              <!-- <font-awesome-icon icon="gauge" /> -->
               Dashboard</router-link
             >
           </li>
           <li class="nav-item">
             <router-link to="/matchlist" class="nav-link">
-              <font-awesome-icon icon="list" />
+              <!-- <font-awesome-icon icon="list" /> -->
               Match List</router-link
             >
+          </li>
+          <li class="nav-item">
+            
           </li>
         </ul>
       </div>
@@ -52,22 +57,19 @@
 </template>
 
 <script>
-import store from "../store/index";
-
 export default {
   name: "NavBar",
   setup() {},
   methods: {
-    clear_storage() {
-      localStorage.removeItem("access_token");
-      localStorage.removeItem("refresh_token");
-      store.commit("auth/clearLoginData");
-      this.$router.push("/login");
+    logout: function () {
+      this.$store.dispatch("logout").then(() => {
+        this.$router.push("/login");
+      });
     },
   },
   computed: {
-    logged_in() {
-      return store.getters["auth/isTokenActive"];
+    isLoggedIn: function () {
+      return this.$store.getters.isLoggedIn;
     },
   },
 };

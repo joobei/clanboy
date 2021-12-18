@@ -1,6 +1,6 @@
 <template>
-  <div class="container-sm">
-    <h4>Login Form</h4>
+  <div class="container" style="max-width: 50%">
+    <h4>Login</h4>
     <form>
       <div class="mb-3">
         <label for="txtuserName" class="form-label">User Name</label>
@@ -25,6 +25,9 @@
         Submit
       </button>
     </form>
+    <div class="container text-center">
+    <router-link to="/register" class="nav-link">Register</router-link>
+    </div>
   </div>
 </template>
 
@@ -40,7 +43,7 @@ export default {
   },
   computed: {
     ...mapGetters("auth", {
-      getterLoginStatus: "getLoginStatus",
+      getterLoginStatus: "authStatus",
     }),
   },
   methods: {
@@ -49,7 +52,7 @@ export default {
     }),
     async login() {
       await this.actionLogin({
-        userName: this.username,
+        username: this.username,
         password: this.password,
       });
       if (this.getterLoginStatus === "success") {
