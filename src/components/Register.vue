@@ -39,17 +39,17 @@ export default {
   name: "RegiStration",
   data() {
     return {
-      name: "Nikolaos Katzakis",
+      username: "jubei",
       email: "nkatzakis@gmail.com",
-      password: "asdf",
-      password_confirmation: "asdf",
+      password: "amataro",
+      password_confirmation: "amataro",
       is_admin: null,
     };
   },
   methods: {
     register: function () {
       let data = {
-        name: this.name,
+        username: this.username,
         email: this.email,
         password: this.password,
         is_admin: this.is_admin,

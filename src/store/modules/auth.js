@@ -1,6 +1,8 @@
 import { tokenAlive } from "../../shared/jwtHelper";
 import members from "@/assets/ids.json";
 import axios from "axios";
+//todo read this BASE_URL from environment variable
+const backend_url = "http://localhost:5000/";
 
 const state = () => ({
     authData: {
@@ -50,15 +52,14 @@ const actions = {
         commit('clearLoginData');
         commit('setLoginStatu', 'failed');
     },
-    async register({ commit }) {
-        console.log("pre-axios!");
-        // commit('register');
-        axios.baseURL = process.env.VUE_APP_API_BASE_URL;
-        axios.post(process.env.VUE_APP_API_BASE_URL + "register")
+    async register({ commit },payload) {
+        axios.post(backend_url + 'register', {
+            username: payload.username,
+            password: payload.password
+        })
             .then(response => {
-                console.log("Registration submitted to express js:");
                 console.log(response);
-                commit('clearLoginData');
+                commit('debugMutation')
             }).catch(error => {
                 throw new Error(`API ${error}`);
             });
@@ -97,6 +98,9 @@ const mutations = {
         };
         state.authData = newTokenData;
     },
+    debugMutation() {
+        console.log("Debug Mutation fired!")
+    }
 };
 
 
