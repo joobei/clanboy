@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import MatchList from '../components/Matchlist.vue'
-import MemberList from '../components/Memberlist.vue'
-import Single_Match from '../components/Single_Match.vue'
-import Login_form from '../components/Login.vue'
-import HomePage from '../components/Home.vue'
-import DashBoard from '../components/Dashboard.vue'
-import store from '../store/index'
+import MatchList from '@/components/Matchlist.vue'
+import MemberList from '@/components/Memberlist.vue'
+import Single_Match from '@/components/Single_Match.vue'
+import Login_form from '@/components/Login.vue'
+import HomePage from '@/components/Home.vue'
+import DashBoard from '@/components/Dashboard.vue'
+import store from '@/store/index'
+import RegiStration from '@/components/Register.vue'
 
 const routes = [
   {
@@ -26,6 +27,11 @@ const routes = [
   {
     path: '/login',
     component: Login_form,
+    meta: { requiredAuth: false }
+  },
+  {
+    path: '/register',
+    component: RegiStration,
     meta: { requiredAuth: false }
   },
   {
@@ -70,7 +76,7 @@ router.beforeEach((to, from, next) => {
   }
   else if (!auth && to.meta.requiredAuth) {
     alert("login required");  
-    return next({ path: '/login' });
+    return next({ path: '/register' });
   }
 
   return next();

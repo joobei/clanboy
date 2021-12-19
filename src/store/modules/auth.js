@@ -1,5 +1,6 @@
 import { tokenAlive } from "../../shared/jwtHelper";
 import members from "@/assets/ids.json";
+import axios from "axios";
 
 const state = () => ({
     authData: {
@@ -35,20 +36,32 @@ const actions = {
             refresh_token: ""
         };
 
-        if (members.members.find(user => user.name === payload.userName) && members.members.find(user => user.password === payload.password)) 
-        {
+        if (members.members.find(user => user.name === payload.userName) && members.members.find(user => user.password === payload.password)) {
             commit('setLoginStatu', 'success');
             commit('saveTokenData', data);
         }
-        else {    
+        else {
             commit('setLoginStatu', 'failed');
         }
         commit('saveTokenData', data);
         commit('setLoginStatu', 'success');
     },
-    logout({commit}) {
+    logout({ commit }) {
         commit('clearLoginData');
         commit('setLoginStatu', 'failed');
+    },
+    async register({ commit }) {
+        console.log("pre-axios!");
+        // commit('register');
+        axios.baseURL = process.env.VUE_APP_API_BASE_URL;
+        axios.post(process.env.VUE_APP_API_BASE_URL + "register")
+            .then(response => {
+                console.log("Registration submitted to express js:");
+                console.log(response);
+                commit('clearLoginData');
+            }).catch(error => {
+                throw new Error(`API ${error}`);
+            });
     }
 };
 
@@ -63,7 +76,7 @@ const mutations = {
         const newTokenData = {
             token: "auth_token_data",
             refreshToken: "auth_token_blah",
-            tokenExp: Date.now()*4999,
+            tokenExp: Date.now() * 4999,
             userId: "nikolaos",
             userName: "weird"
         };
@@ -82,8 +95,8 @@ const mutations = {
             userId: "",
             userName: ""
         };
-        state.authData =  newTokenData;
-    }
+        state.authData = newTokenData;
+    },
 };
 
 

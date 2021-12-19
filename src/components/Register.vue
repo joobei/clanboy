@@ -2,7 +2,7 @@
   <div class="container">
     <h4>Register</h4>
     <form @submit.prevent="register">
-      <label for="name">Name</label>
+      <!-- <label for="name">Name</label>
       <div>
         <input id="name" type="text" v-model="name" required autofocus />
       </div>
@@ -25,7 +25,7 @@
           v-model="password_confirmation"
           required
         />
-      </div>
+      </div> -->
 
       <div>
         <button type="submit">Register</button>
@@ -39,10 +39,10 @@ export default {
   name: "RegiStration",
   data() {
     return {
-      name: "",
-      email: "",
-      password: "",
-      password_confirmation: "",
+      name: "Nikolaos Katzakis",
+      email: "nkatzakis@gmail.com",
+      password: "asdf",
+      password_confirmation: "asdf",
       is_admin: null,
     };
   },
@@ -55,8 +55,8 @@ export default {
         is_admin: this.is_admin,
       };
       this.$store
-        .dispatch("register", data)
-        .then(() => this.$router.push("/"))
+        .dispatch("auth/register", data)
+        .then(() => this.$router.push("/dashboard"))
         .catch((err) => console.log(err));
     },
   },
