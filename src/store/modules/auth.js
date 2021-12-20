@@ -41,8 +41,9 @@ const actions = {
             password: payload.password
         }).then(response => {
             console.log(response.data.token);
-            if (response.data.token == "") {
-                commit('setLoginStatus', false)
+            if (response.data.token === "") {
+                commit('setLoginStatus', false);
+                commit('updateLastMessage', "Login Failed.");
             }
             else {
                 commit('saveTokenData', response.data.token);
