@@ -25,9 +25,6 @@
 
 
 <script>
-// @ts-ignore
-// import { Alert } from "bootstrap";
-
 export default {
   name: "RegiStration",
   data: () => ({
@@ -38,11 +35,6 @@ export default {
     is_admin: null,
     alertMessage: "",
   }),
-  mounted() {
-    // var myAlert = document.getElementById("bottomAlert");
-    // var test = new Alert(myAlert);
-    // this.alert.show();
-  },
   methods: {
     register() {
       let data = {
@@ -54,7 +46,8 @@ export default {
       this.$store
         .dispatch("auth/register", data)
         .then(
-            this.alertMessage = this.$store.getters['auth/getLastMessage']
+            // this.alertMessage = this.$store.getters['auth/getLastMessage']
+            // this.$emit('alert-message-available')
         )
         .catch((err) => console.log(err));
     },

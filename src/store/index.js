@@ -6,7 +6,8 @@ const store = createStore({
   modules:{
    match:matchModule,
    auth:authModule
-  }
+  },
+  strict: true
 });
  
 export default store;

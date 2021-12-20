@@ -1,23 +1,30 @@
 <template>
   <div class="row">
     <div
-      class="alert alert-danger" style="width:100%"
+      class="alert alert-danger"
+      style="width: 100%"
       align="center"
-      id="bottomAlert"
     >
-      {{ message }}
+      {{ lastMessage }}
     </div>
   </div>
 </template>
 
-  <script>
+<script>
+import { mapState } from "vuex";
+
 export default {
   name: "AlertRow",
-  props: ["message"],
   // data: function () {
   //   return {
-  //     alertMessage: "test",
+  //     message: "untouched",
   //   };
+  // },
+  computed: mapState('auth',['lastMessage']),
+  // methods: {
+  //   fetch_message() {
+  //     this.message = this.$store.getters["auth/getLastMessage"];
+  //   },
   // },
 };
 </script>
