@@ -4,7 +4,6 @@ var express = require("express"),
   jwt = require("jwt-simple");
 
 exports.login = function (req, res) {
-  console.log("Logged In");
   User.findOne({ username: req.body.username }, (err, user) => {
     if (err) {
       console.log("Error Happened In auth /token Route");
@@ -15,8 +14,9 @@ exports.login = function (req, res) {
       };
       var token = jwt.encode(payload, config.jwtSecret);
       res.json({
-        token: token,
+        token: token
       });
+      console.log("Login Success")
     }
   });
 };

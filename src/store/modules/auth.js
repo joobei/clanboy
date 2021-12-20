@@ -1,5 +1,4 @@
 import { tokenAlive } from "../../shared/jwtHelper";
-import members from "@/assets/ids.json";
 import axios from "axios";
 //todo read this BASE_URL from environment variable
 const backend_url = "http://localhost:5000/";
@@ -7,12 +6,12 @@ const backend_url = "http://localhost:5000/";
 const state = () => ({
     authData: {
         token: "",
-        refreshToken: "",
-        tokenExp: "",
-        userId: "",
-        userName: "",
+        // refreshToken: "",
+        // tokenExp: "",
+        // userId: "",
+        // userName: "",
     },
-    loginStatus: "undefined",
+    loginStatus: false,
     lastMessage: ""
 });
 
@@ -37,24 +36,24 @@ const getters = {
 
 const actions = {
     async login({ commit }, payload) {
-        const data = {
-            access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3QiLCJzdWIiOjIsImlhdCI6MTYwNDMwOTc0OSwiZXhwIjoxNjA0MzA5ODA5fQ.jHez9kegJ7GT1AO5A2fQp6Dg9A6PBmeiDW1YPaCQoYs",
-            refresh_token: ""
-        };
-
-        if (members.members.find(user => user.name === payload.userName) && members.members.find(user => user.password === payload.password)) {
-            commit('setLoginStatu', 'success');
-            commit('saveTokenData', data);
-        }
-        else {
-            commit('setLoginStatu', 'failed');
-        }
-        commit('saveTokenData', data);
-        commit('setLoginStatu', 'success');
+        axios.post(backend_url + 'login', {
+            username: payload.username,
+            password: payload.password
+        }).then(response => {
+            console.log(response.data.token);
+            if (response.data.token == "") {
+                commit('setLoginStatus', false)
+            }
+            else {
+                commit('saveTokenData', response.data.token);
+                commit('updateLastMessage', "Login Successful.");
+                commit('setLoginStatus', true);
+            }
+        });
     },
     logout({ commit }) {
         commit('clearLoginData');
-        commit('setLoginStatu', 'failed');
+        // commit('setLoginStatu', 'failed');
     },
     register({ commit }, payload) {
         axios.post(backend_url + 'register', {
@@ -70,20 +69,20 @@ const actions = {
 const mutations = {
     saveTokenData(state, data) {
 
-        localStorage.setItem("access_token", data.access_token);
-        localStorage.setItem("refresh_token", data.refresh_token);
+        localStorage.setItem("access_token", data);
+        // localStorage.setItem("refresh_token", data.refresh_token);
 
         // const jwtDecodedValue = jwtDecrypt(data.access_token);
         const newTokenData = {
             token: "auth_token_data",
-            refreshToken: "auth_token_blah",
-            tokenExp: Date.now() * 4999,
-            userId: "nikolaos",
-            userName: "weird"
+            // refreshToken: "auth_token_blah",
+            // tokenExp: Date.now() * 4999,
+            // userId: "nikolaos",
+            // userName: "weird"
         };
         state.authData = newTokenData;
     },
-    setLoginStatu(state, value) {
+    setLoginStatus(state, value) {
         state.loginStatus = value;
     },
     clearLoginData(state) {
@@ -91,10 +90,10 @@ const mutations = {
         localStorage.removeItem("refresh_token");
         const newTokenData = {
             token: "",
-            refreshToken: "",
-            tokenExp: "",
-            userId: "",
-            userName: ""
+            // refreshToken: "",
+            // tokenExp: "",
+            // userId: "",
+            // userName: ""
         };
         state.authData = newTokenData;
     },

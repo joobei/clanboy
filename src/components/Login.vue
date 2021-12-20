@@ -55,11 +55,9 @@ export default {
         username: this.username,
         password: this.password,
       });
-      if (this.getterLoginStatus === "success") {
-        this.$router.push("/dashboard");
-      } else {
-        alert("failed to login");
-      }
+      //todo redirect if success
+      // this.$router.push("/dashboard");
+      
     },
   },
 };
