@@ -1,20 +1,23 @@
 <template>
   <div>
     <NavBar/>
+    <AlertRow/>
     <router-view></router-view>
   </div>
+
 </template>
 
 <script>
 import NavBar from "@/components/navbar.vue"
-// import store from "@/store/modules/matches"
+import AlertRow from "@/components/AlertRow.vue"
 
 export default {
   name: "App",
-  components: { NavBar },
-  // created() {
-  //   this.$store.dispatch('match/loadMatches');
-  // },
+  components: { NavBar, AlertRow },
+  data() {
+    return {
+    }
+  }
 };
 </script>
 
