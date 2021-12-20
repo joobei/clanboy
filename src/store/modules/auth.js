@@ -13,7 +13,7 @@ const state = () => ({
         userName: "",
     },
     loginStatus: "undefined",
-    lastMessage: "baloney"
+    lastMessage: ""
 });
 
 
@@ -61,7 +61,6 @@ const actions = {
             username: payload.username,
             password: payload.password
         }).then(response => {
-            console.log(response);
             commit('updateLastMessage', response.data.message);
         });
     }

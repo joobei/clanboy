@@ -14,18 +14,7 @@
 import { mapState } from "vuex";
 
 export default {
-  name: "AlertRow",
-  // data: function () {
-  //   return {
-  //     message: "untouched",
-  //   };
-  // },
   computed: mapState('auth',['lastMessage']),
-  // methods: {
-  //   fetch_message() {
-  //     this.message = this.$store.getters["auth/getLastMessage"];
-  //   },
-  // },
 };
 </script>
   

@@ -3,7 +3,7 @@
   <div class="container">
     <h4>Register</h4>
     <form @submit.prevent="register">
-      <label for="username">Name</label>
+      <label for="username">Discord Id</label>
       <div>
         <input
           id="username"
@@ -22,8 +22,6 @@
   </div>
 </template>
 
-
-
 <script>
 export default {
   name: "RegiStration",
@@ -39,17 +37,9 @@ export default {
     register() {
       let data = {
         username: this.username,
-        email: this.email,
-        password: this.password,
-        is_admin: this.is_admin,
+        password: this.password
       };
-      this.$store
-        .dispatch("auth/register", data)
-        .then(
-            // this.alertMessage = this.$store.getters['auth/getLastMessage']
-            // this.$emit('alert-message-available')
-        )
-        .catch((err) => console.log(err));
+      this.$store.dispatch("auth/register", data);
     },
   },
 };
