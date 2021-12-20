@@ -13,6 +13,7 @@ const state = () => ({
         userName: "",
     },
     loginStatus: "undefined",
+    lastMessage: "baloney"
 });
 
 
@@ -28,6 +29,9 @@ const getters = {
             return false;
         }
         return tokenAlive(state.authData.tokenExp);
+    },
+    getLastMesssage(state) {
+        return state.lastMessage;
     }
 };
 
@@ -52,17 +56,14 @@ const actions = {
         commit('clearLoginData');
         commit('setLoginStatu', 'failed');
     },
-    async register({ commit },payload) {
+    register({ commit }, payload) {
         axios.post(backend_url + 'register', {
             username: payload.username,
             password: payload.password
-        })
-            .then(response => {
-                console.log(response);
-                commit('debugMutation')
-            }).catch(error => {
-                throw new Error(`API ${error}`);
-            });
+        }).then(response => {
+            console.log(response);
+            commit('updateLastMessage', response.data.message);
+        });
     }
 };
 
@@ -98,8 +99,8 @@ const mutations = {
         };
         state.authData = newTokenData;
     },
-    debugMutation() {
-        console.log("Debug Mutation fired!")
+    updateLastMessage(state, value) {
+        state.lastMessage = value;
     }
 };
 
