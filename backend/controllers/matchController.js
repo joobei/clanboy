@@ -1,3 +1,3 @@
 exports.get_post = function (req, res) {
-    res.send("Secret Post")
+    res.send("Matches upcoming blah blah")
   };
