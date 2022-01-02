@@ -7,6 +7,7 @@ exports.login = function (req, res) {
   User.findOne({ username: req.body.username }, (err, user) => {
     if (err) {
       console.log("Error Happened In auth /token Route");
+      res.send(err)
     } else {
       var payload = {
         id: user.id,

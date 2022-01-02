@@ -54,25 +54,10 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  // console.log(store.getters["auth/getAuthData"].token);
-  if (!store.getters["auth/getAuthData"].token) {
-      const access_token = localStorage.getItem("access_token");
-      // const refresh_token = localStorage.getItem("refresh_token");
-      if (access_token) {
-          const data = {
-              access_token: access_token,
-              // refresh_token: refresh_token
-          };
-          store.commit('auth/saveTokenData', data.access_token);
-      }
-  }
-  const auth = store.getters["auth/getLoginStatus"];
+  //fetch if user is logged in
+  const auth = store.getters["auth/userIsLoggedIn"];
 
-  if (to.fullPath == "/") {
-      return next();
-  }
-  else if (auth && !to.meta.requiredAuth) {
-      // return next({ path: "/dashboard" });
+  if (auth && !to.meta.requiredAuth) {
       return next();
   }
   else if (!auth && to.meta.requiredAuth) {

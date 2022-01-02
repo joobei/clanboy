@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
-var postController = require("../controllers/postController");
+var postController = require("../controllers/matchController");
 var auth = require("../middleware/auth")();
-router.get("/mypost", auth.authenticate(), postController.get_post);
+router.get("/matches", auth.authenticate(), postController.get_post);
 
 module.exports = router;

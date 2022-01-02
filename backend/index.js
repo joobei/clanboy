@@ -1,7 +1,7 @@
 const express = require("express"),
   app = express(),
   authRoute = require("./routes/authRoute"),
-  postRoute = require("./routes/postRoute"),
+  matchRoute = require("./routes/matchRoute"),
   auth = require('./middleware/auth.js')(),
   mongoose = require("mongoose"),
   passport = require("passport"),
@@ -33,7 +33,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use(authRoute);
-app.use(postRoute);
+app.use(matchRoute);
 
 
 app.use(function(req, res, next) {
