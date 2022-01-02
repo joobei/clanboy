@@ -28,9 +28,6 @@ export default {
       this.makeVisible();
     },
   },
-  // updated: function () {
-  //   this.makeVisible();
-  // },
 };
 </script>
   
