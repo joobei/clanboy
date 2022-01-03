@@ -67,8 +67,7 @@ const actions = {
 
 const mutations = {
     saveTokenData(state, data) {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${data
-            }`
+        axios.defaults.headers.common['Authorization'] = `Bearer ${data}`
         localStorage.setItem("access_token", data);
         state.authData.token = data;
     },
