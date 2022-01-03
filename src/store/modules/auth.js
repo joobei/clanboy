@@ -39,16 +39,16 @@ const actions = {
             password: payload.password
         }).then(response => {
             // console.log(jwt.decode(response.data.token,"s0m3$3Cret$h0lyC0d3&$"));
+            // todo pick up username from response?
             console.log(response.data.token);
-            if (response.data.token === "") {
-                commit('setLoginStatus', false);
-                commit('updateLastMessage', "Login Failed.");
-            }
-            
-            else {
+            if (response.data.token) {
                 commit('saveTokenData', response.data.token);
                 commit('updateLastMessage', "Login Successful.");
             }
+        }).catch((error) => {
+            console.log(error);
+            commit('updateLastMessage', "Login failed. Please verify your username/password.");
+
         });
     },
     logout({ commit }) {
@@ -67,6 +67,7 @@ const actions = {
 
 const mutations = {
     saveTokenData(state, data) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${data}`
         axios.defaults.headers.common['Authorization'] = `Bearer ${data}`
         localStorage.setItem("access_token", data);
         state.authData.token = data;
