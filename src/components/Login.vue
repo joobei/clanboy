@@ -47,16 +47,13 @@ export default {
     }),
   },
   methods: {
-    ...mapActions("auth", {
-      actionLogin: "login",
-    }),
+    ...mapActions("auth", {actionLogin: "login"}),
     async login() {
       await this.actionLogin({
         username: this.username,
         password: this.password,
       });
-      //todo redirect if success
-      // this.$router.push("/dashboard");
+      this.$router.push("/matchlist");
       
     },
   },

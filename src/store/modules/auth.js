@@ -18,7 +18,7 @@ const getters = {
         return state;
     },
     userIsLoggedIn(state) {
-        return state.token;
+        return state.loginStatus;
     },
     isTokenActive(state) {
         if (!state.authData.token) {
@@ -42,6 +42,7 @@ const actions = {
                 commit('saveUserId', uname);
                 commit('saveTokenData', response.data.token);
                 commit('updateLastMessage', "Login Successful.");
+                commit('setLoginStatus',true);
             }
         }).catch((error) => {
             console.log(error);
@@ -79,6 +80,7 @@ const mutations = {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
         state.token = null;
+        state.loginStatus = false;
     },
     updateLastMessage(state, value) {
         state.lastMessage = value;
