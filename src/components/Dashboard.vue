@@ -1,18 +1,13 @@
     <template>
   <div class="container-sm">
     <h1>Dashboard Page</h1>
-    <div>UserName -- {{ gettersAuthData.userName }}</div>
-    <div>Id -- {{ gettersAuthData.userId }}</div>
+    <div>UserName -- {{ username }}</div>
   </div>
 </template>
     <script>
-import { mapGetters } from "vuex";
+import { mapState } from "vuex";
 export default {
-  name: 'DashBoard',
-  computed: {
-    ...mapGetters("auth", {
-      gettersAuthData: "getAuthData",
-    }),
-  },
+  name: "DashBoard",
+  computed: mapState("auth", ["username"]),
 };
 </script>

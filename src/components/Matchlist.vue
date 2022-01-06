@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h3 style="margin-top: 20px">Upcoming Match</h3>
-    <!-- <dl class="row">
+    <dl class="row">
       <MatchListItem
         style="margin-bottom: 1em"
         :class="{
@@ -12,7 +12,7 @@
         :key="index"
         v-bind:match_data="data"
       />
-    </dl> -->
+    </dl>
     {{ matchData }}
   </div>
 </template>

@@ -1,14 +1,13 @@
 import { tokenAlive } from "../../shared/jwtHelper";
+// import jwt_decode from "jwt-decode";
 import axios from "axios";
 
 //todo read this BASE_URL from environment variable
 const backend_url = "http://localhost:5000/";
 
 const state = () => ({
-    authData: {
-        token: "",
-        userId: "",
-    },
+    token: "",
+    username: "",
     loginStatus: false,
     lastMessage: ""
 });
@@ -16,10 +15,10 @@ const state = () => ({
 
 const getters = {
     getAuthData(state) {
-        return state.authData;
+        return state;
     },
     userIsLoggedIn(state) {
-        return state.authData.token;
+        return state.token;
     },
     isTokenActive(state) {
         if (!state.authData.token) {
@@ -34,14 +33,13 @@ const getters = {
 
 const actions = {
     async login({ commit }, payload) {
+        const uname = payload.username;
         axios.post(backend_url + 'login', {
             username: payload.username,
             password: payload.password
         }).then(response => {
-            // console.log(jwt.decode(response.data.token,"s0m3$3Cret$h0lyC0d3&$"));
-            // todo pick up username from response?
-            console.log(response.data.token);
             if (response.data.token) {
+                commit('saveUserId', uname);
                 commit('saveTokenData', response.data.token);
                 commit('updateLastMessage', "Login Successful.");
             }
@@ -66,11 +64,13 @@ const actions = {
 
 
 const mutations = {
+    saveUserId(state, id) {
+        state.username = id;
+    },
     saveTokenData(state, data) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${data}`
-        axios.defaults.headers.common['Authorization'] = `Bearer ${data}`
         localStorage.setItem("access_token", data);
-        state.authData.token = data;
+        state.token = data;
     },
     setLoginStatus(state, value) {
         state.loginStatus = value;
@@ -78,7 +78,7 @@ const mutations = {
     clearLoginData(state) {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
-        state.authData.token = null;
+        state.token = null;
     },
     updateLastMessage(state, value) {
         state.lastMessage = value;
