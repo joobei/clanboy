@@ -30,7 +30,7 @@
           </li>
         </ul>
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
+          <li class="nav-item" v-if="loginStatus">
             <router-link to="/dashboard" class="nav-link">
               Dashboard</router-link
             >
