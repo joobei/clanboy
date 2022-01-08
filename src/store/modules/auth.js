@@ -50,6 +50,16 @@ const actions = {
 
         });
     },
+    recover_token_from_local_storage({commit}){
+        if(localStorage.getItem("access_token")) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.access_token}`
+            commit('setLoginStatus',true)
+            return true
+        }
+        else {
+            return false
+        }
+    },
     logout({ commit }) {
         commit('clearLoginData');
     },

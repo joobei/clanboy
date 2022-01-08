@@ -55,7 +55,11 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   //fetch if user is logged in
-  const auth = store.getters["auth/userIsLoggedIn"];
+  var auth = store.getters["auth/userIsLoggedIn"];
+  if(!auth) {
+
+    auth = store.dispatch('auth/recover_token_from_local_storage');
+  }
 
   if (auth && !to.meta.requiredAuth) {
       return next();
