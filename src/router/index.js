@@ -57,8 +57,8 @@ router.beforeEach((to, from, next) => {
   //fetch if user is logged in
   var auth = store.getters["auth/userIsLoggedIn"];
   if(!auth) {
-
-    auth = store.dispatch('auth/recover_token_from_local_storage');
+    store.dispatch('auth/recover_token_from_local_storage');
+    auth = store.getters["auth/userIsLoggedIn"];
   }
 
   if (auth && !to.meta.requiredAuth) {
