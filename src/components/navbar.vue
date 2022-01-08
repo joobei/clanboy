@@ -19,6 +19,22 @@
             <router-link to="/" class="nav-link">Home
             </router-link>
           </li>
+          
+          <li class="nav-item">
+            <router-link to="/matchlist" class="nav-link">
+              Match List</router-link
+            >
+          </li>
+          <li class="nav-item">
+            
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <router-link to="/dashboard" class="nav-link">
+              Dashboard</router-link
+            >
+          </li>
           <li
             v-if="loginStatus"
             class="nav-item nav-link"
@@ -27,23 +43,10 @@
           >
             Logout
           </li>
-          <li class="nav-item" v-else>
+          <li class="nav-item " v-else>
             <router-link to="/login" class="nav-link">
               Login</router-link
             >
-          </li>
-          <li class="nav-item">
-            <router-link to="/dashboard" class="nav-link">
-              Dashboard</router-link
-            >
-          </li>
-          <li class="nav-item">
-            <router-link to="/matchlist" class="nav-link">
-              Match List</router-link
-            >
-          </li>
-          <li class="nav-item">
-            
           </li>
         </ul>
       </div>
