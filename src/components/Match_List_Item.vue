@@ -10,11 +10,5 @@
 export default {
   name: "MatchListItem",
   props: ["match_data"],
-  data() {
-    return {
-      // hover: false,
-      // ready: false,
-    };
-  }
 };
 </script>
