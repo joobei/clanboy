@@ -8,8 +8,9 @@
           type="text"
           class="form-control"
           id="txtuserName"
-          aria-describedby="emailHelp"
           v-model="username"
+          required
+          autofocus
         />
       </div>
       <div class="mb-3">

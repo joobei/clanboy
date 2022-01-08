@@ -48,6 +48,11 @@
               Login</router-link
             >
           </li>
+    
+    
+    <router-link to="/register" class="nav-link"><button type="button" class="btn btn-primary">
+        Sign Up
+      </button></router-link>
         </ul>
       </div>
     </div>
