@@ -13,7 +13,6 @@
         v-bind:match_data="data"
       />
     </dl>
-    {{ matchData }}
   </div>
 </template>
 
