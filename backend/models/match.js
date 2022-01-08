@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-var matchSchema = new mongoose.Schema({
+const matchSchema = new mongoose.Schema({
     _id: String,
     vs: String,
     map: String,
@@ -8,7 +8,7 @@ var matchSchema = new mongoose.Schema({
     slots: Number,
     players: [String],
     side: String,
-    outcome: String
+    outcome: Boolean
 });
 
 module.exports = mongoose.model("Match", matchSchema);

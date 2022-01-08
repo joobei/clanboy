@@ -1,10 +1,8 @@
 import axios from "axios";
 
-const state = () => {
-    return {
-        matches: []
-    }
-};
+const state = () => ({
+    matches: []
+});
 
 const getters = {
     getMatchData(state) {
@@ -15,7 +13,7 @@ const getters = {
 axios.baseURL = process.env.VUE_APP_API_BASE_URL;
 const actions = {
     async loadMatches({ commit }) {
-        axios.get(process.env.VUE_APP_API_BASE_URL+"matches")
+        axios.get(process.env.VUE_APP_API_BASE_URL + "matches")
             .then(response => {
                 commit('SET_MATCHES_TO_STATE', response.data);
             }).catch(error => {
