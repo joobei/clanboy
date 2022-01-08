@@ -1,5 +1,15 @@
 <template>
   <div class="container">
+    <router-link to="/matchlist"
+      ><button
+        type="button"
+        class="btn btn-primary"
+        aria-pressed="false"
+        autocomplete="off"
+      >
+        Back to matches.
+      </button></router-link
+    >
     <h1>{{ match_info.vs }}</h1>
     <dl class="row">
       <dt class="col-sm-3">Map</dt>
@@ -70,8 +80,8 @@ export default {
   },
   computed: {
     getMatches() {
-      return this.$store.getters['match/getMatchData'];
-    }
+      return this.$store.getters["match/getMatchData"];
+    },
   },
   created() {
     this.match_info = this.getMatches.find(
