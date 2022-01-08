@@ -18,11 +18,11 @@
 </template>
 
 <script>
-// import MatchListItem from "./Match_List_Item.vue";
+import MatchListItem from "./Match_List_Item.vue";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
-  // components: { MatchListItem },
+  components: { MatchListItem },
   data() {
     return {
       matchData: '',
