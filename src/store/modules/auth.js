@@ -88,8 +88,7 @@ const mutations = {
     },
     clearLoginData(state) {
         localStorage.removeItem("access_token");
-        localStorage.removeItem("refresh_token");
-        state.token = null;
+        state.token = '';
         state.loginStatus = false;
     },
     updateLastMessage(state, value) {
