@@ -8,14 +8,15 @@ const express = require("express"),
   localStrategy = require("passport-local"),
   User = require("./models/user"),
   bodyParser = require("body-parser");
-const expression = require("express-session");  
-app.use(expression({
+const express_session = require("express-session");
+
+app.use(express_session({
   resave: false,
   saveUninitialized: true,
-  secret: 's3t3c4$7r0n0my' 
+  secret: 's3t3c4$7r0n0my'
 }));
 var fs = require('fs');
-const connectionString = fs.readFileSync("key.txt", 'utf8');
+const connectionString = fs.readFileSync("backend/key.txt", 'utf8');
 const cors = require('cors');
 
 mongoose.connect(connectionString, {
@@ -36,15 +37,15 @@ app.use(authRoute);
 app.use(matchRoute);
 
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 if (process.env.VUE_APP_API_BASE_URL !== 'production') {
-app.use(cors({
-  credentials: true,
-}));
+  app.use(cors({
+    credentials: true,
+  }));
 }
 
 app.listen(5000, () => {
