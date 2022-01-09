@@ -16,7 +16,7 @@ export default {
       visible: false,
     };
   },
-  computed: mapState("auth", ["lastMessage"]),
+  computed: mapState("auth", ["lastMessage","pendingMessage"]),
   methods: {
     makeVisible() {
       this.visible = true;
@@ -24,8 +24,9 @@ export default {
     }
   },
   watch: {
-    lastMessage: function () {
+    pendingMessage: function () {
       this.makeVisible();
+      this.$store.dispatch("auth/clear_pending_message");
     },
   },
 };

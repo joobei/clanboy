@@ -9,7 +9,8 @@ const state = () => ({
     token: "",
     username: "",
     loginStatus: false,
-    lastMessage: ""
+    lastMessage: "",
+    pendingMessage: false
 });
 
 
@@ -70,11 +71,17 @@ const actions = {
         }).then(response => {
             commit('updateLastMessage', response.data.message);
         });
+    },
+    clear_pending_message({commit}) {
+        commit('clear_message_queue');
     }
 };
 
 
 const mutations = {
+    clear_message_queue(state) {
+        state.pendingMessage = false;
+    },
     saveUserId(state, id) {
         state.username = id;
     },
@@ -93,6 +100,7 @@ const mutations = {
     },
     updateLastMessage(state, value) {
         state.lastMessage = value;
+        state.pendingMessage = true;
     }
 };
 
