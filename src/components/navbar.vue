@@ -50,7 +50,7 @@
           </li>
     
     
-    <router-link to="/register" class="nav-link"><button type="button" class="btn btn-primary">
+    <router-link v-if="!loginStatus" to="/register" class="nav-link"><button type="button" class="btn btn-primary">
         Sign Up
       </button></router-link>
         </ul>
