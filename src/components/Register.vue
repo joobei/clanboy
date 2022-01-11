@@ -14,8 +14,8 @@
         />
       </div>
       <div class="mb-3">
-      <label class="form-label" for="password">Password</label>
-        <input class="form-control" id="password" type="password" v-model="password" required />
+      <label class="form-label" for="password"></label>
+        <input class="form-control" id="password" type="password" v-model="password" required/>{{this.$route.query.code}}
       </div>
       <button type="submit" class="btn btn-primary">Register</button>
     </form>
@@ -28,8 +28,8 @@ export default {
   data: () => ({
     username: "jubei",
     email: "nkatzakis@gmail.com",
-    password: "amataro",
-    password_confirmation: "amataro",
+    password: "",
+    password_confirmation: "",
     is_admin: null,
     alertMessage: "",
   }),
@@ -37,7 +37,7 @@ export default {
     register() {
       let data = {
         username: this.username,
-        password: this.password
+        password: this.password,
       };
       this.$store.dispatch("auth/register", data);
     },

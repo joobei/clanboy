@@ -30,7 +30,7 @@ const routes = [
     meta: { requiredAuth: false }
   },
   {
-    path: '/register',
+    path: '/discord',
     component: RegiStration,
     meta: { requiredAuth: false }
   },
@@ -56,16 +56,16 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   //fetch if user is logged in
   var auth = store.getters["auth/userIsLoggedIn"];
-  if(!auth) {
+  if (!auth) {
     store.dispatch('auth/recover_token_from_local_storage');
     auth = store.getters["auth/userIsLoggedIn"];
   }
 
   if (auth && !to.meta.requiredAuth) {
-      return next();
+    return next();
   }
   else if (!auth && to.meta.requiredAuth) {
-    store.commit('auth/updateLastMessage','You need to login before accessing this page.')
+    store.commit('auth/updateLastMessage', 'You need to login before accessing this page.')
     return next({ path: '/login' });
   }
 
