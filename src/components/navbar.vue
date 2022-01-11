@@ -43,16 +43,17 @@
           >
             Logout
           </li>
-          <li class="nav-item " v-else>
+          <!-- <li class="nav-item " v-else>
             <router-link to="/login" class="nav-link">
               Login</router-link
             >
-          </li>
+          </li> -->
     
     
-    <!-- <router-link v-if="!loginStatus" to="/register" class="nav-link"><button type="button" class="btn btn-primary">
-        Sign Up
-      </button></router-link> -->
+    <!-- <a v-if="!loginStatus" href="https://discord.com/api/oauth2/authorize?client_id=919917579844349952&redirect_uri=https%3A%2F%2Flocalhost%3A8080%2Fdiscord&response_type=code&scope=identify%20email" class="nav-link"><button type="button" class="btn btn-primary"> -->
+      <a v-if="!loginStatus" href="http://localhost:5000/auth/discord" class="nav-link"><button type="button" class="btn btn-primary">
+        Login using Discord
+      </button></a>
         </ul>
       </div>
     </div>
