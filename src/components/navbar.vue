@@ -16,18 +16,15 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <router-link to="/" class="nav-link">Home
-            </router-link>
+            <router-link to="/" class="nav-link">Home </router-link>
           </li>
-          
+
           <li class="nav-item">
             <router-link to="/matchlist" class="nav-link">
               Match List</router-link
             >
           </li>
-          <li class="nav-item">
-            
-          </li>
+          <li class="nav-item"></li>
         </ul>
         <ul class="navbar-nav ms-auto">
           <li class="nav-item" v-if="loginStatus">
@@ -43,9 +40,12 @@
           >
             Logout
           </li>
-    <router-link v-if="!loginStatus" to="/register" class="nav-link"><button type="button" class="btn btn-primary">
-        <img src="../assets/Discord-Logo-White.png" style="width:20px"/> Login with Discord
-      </button></router-link>
+          <a v-if="!loginStatus" class="nav-link" v-bind:href="url_path"
+            ><button type="button" class="btn btn-primary">
+              <img src="../assets/Discord-Logo-White.png" style="width: 20px" />
+              Login with Discord
+            </button></a
+          >
         </ul>
       </div>
     </div>
@@ -57,7 +57,11 @@ import { mapState } from "vuex";
 
 export default {
   name: "NavBar",
-  setup() {},
+  data() {
+    return {
+      url_path: process.env.VUE_APP_API_BASE_URL+'auth/discord',
+    };
+  },
   methods: {
     logout: function () {
       this.$store.dispatch("auth/logout").then(() => {
@@ -65,6 +69,6 @@ export default {
       });
     },
   },
-  computed: mapState('auth', ["loginStatus"]),
+  computed: mapState("auth", ["loginStatus"]),
 };
 </script>
