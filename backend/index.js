@@ -1,19 +1,12 @@
-const express = require("express"),
-  app = express(),
-  oauthRoute = require("./routes/oauthRoute"),
-  authRoute = require("./routes/authRoute"),
-  matchRoute = require("./routes/matchRoute"),
-  mongoose = require("mongoose"),
-  passport = require("passport"),
-  bodyParser = require("body-parser"),
-  express_session = require("express-session");
+require("dotenv").config();
 
-require("./models/user");
+const express = require("express");
+const session = require("express-session");
+const passport = require("passport");
+const Strategy = require("@qgisk/passport-discord").Strategy;
+const app = express();
 
-const Strategy = require('@qgisk/passport-discord').Strategy;
-
-const scopes = ["identify"];
-const prompt = "consent";
+const { DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, DISCORD_CALLBACK, LISTEN_PORT } = process.env;
 
 passport.serializeUser(function (user, done) {
   done(null, user);
@@ -22,53 +15,66 @@ passport.deserializeUser(function (obj, done) {
   done(null, obj);
 });
 
-passport.use(new Strategy({
-    clientID: '919917579844349952',
-    clientSecret: '44c9c57c84fc42d78ac4cac393f4e79a06df6ae55980da1b024202430abf5523',
-    callbackURL: 'https://localhost:8080/discord',
-    scope: scopes,
-    prompt: prompt,
-},
-(accessToken, refreshToken, profile, cb) => {
-    User.findOrCreate({ discordId: profile.id }, (err, user) => {
-        return cb(err, user);
-    });
-}));
+const scopes = ["identify"];
+const prompt = "consent";
 
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+const checkAuth = (req, res, next) => {
+  if (req.isAuthenticated()) return next();
+  res.send("not logged in :(");
+};
 
+passport.use(
+  new Strategy(
+    {
+      clientID: DISCORD_CLIENT_ID,
+      clientSecret: DISCORD_CLIENT_SECRET,
+      callbackURL: DISCORD_CALLBACK,
+      scope: scopes,
+      prompt: prompt,
+    },
+    function (_accessToken, _refreshToken, profile, done) {
+      process.nextTick(function () {
+        return done(null, profile);
+      });
+    }
+  )
+);
 
-var fs = require('fs');
-const connectionString = fs.readFileSync("backend/key.txt", 'utf8');
-const cors = require('cors');
-
-mongoose.connect(connectionString, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-// app.use(auth.initialize());
-// Passport Config
-// passport.use(new localStrategy(User.authenticate()));
-// passport.serializeUser(User.serializeUser());
-// passport.deserializeUser(User.deserializeUser());
-
-app.use(oauthRoute);
-app.use(authRoute);
-app.use(matchRoute);
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express_session({
-  resave: false,
-  saveUninitialized: true,
-  secret: 's3t3c4$7r0n0my'
-}));
+app.get(
+  "/auth/discord",
+  passport.authenticate("discord", { scope: scopes, prompt: prompt })
+);
 
-app.listen(5000, () => {
-  console.log("Server Started at 5000");
+app.get(
+  "/auth/discord/callback",
+  passport.authenticate("discord", { failureRedirect: "/" }),
+  (_req, res) => {
+    res.redirect("/info");
+  }
+);
+
+app.get("/logout", (req, res) => {
+  req.logout();
+  res.redirect("/");
+});
+
+app.get("/info", checkAuth, (req, res) => {
+  // console.log(req.user)
+  res.json(req.user);
+});
+
+app.listen(LISTEN_PORT, (err) => {
+  /* eslint-disable no-console */
+  if (err) return console.log(err);
+
+  console.log(`Listening at port ${LISTEN_PORT}`);
 });
