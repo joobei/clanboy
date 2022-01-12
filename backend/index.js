@@ -6,7 +6,7 @@ const passport = require("passport");
 const Strategy = require("@qgisk/passport-discord").Strategy;
 const app = express();
 
-const { DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, DISCORD_CALLBACK, LISTEN_PORT } = process.env;
+const { DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, DISCORD_CALLBACK, LISTEN_PORT, SESSION_SECRET } = process.env;
 
 passport.serializeUser(function (user, done) {
   done(null, user);
@@ -15,7 +15,7 @@ passport.deserializeUser(function (obj, done) {
   done(null, obj);
 });
 
-const scopes = ["identify"];
+const scopes = ["identify","email","guilds"];
 const prompt = "consent";
 
 const checkAuth = (req, res, next) => {
@@ -42,7 +42,7 @@ passport.use(
 
 app.use(
   session({
-    secret: "keyboard cat",
+    secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
   })
@@ -54,11 +54,10 @@ app.get(
   passport.authenticate("discord", { scope: scopes, prompt: prompt })
 );
 
-app.get(
-  "/auth/discord/callback",
-  passport.authenticate("discord", { failureRedirect: "/" }),
+app.get("/auth/discord/callback",passport.authenticate("discord", { failureRedirect: "/" }),
   (_req, res) => {
-    res.redirect("/info");
+    res.send(_req.user)
+    // res.redirect("/info");
   }
 );
 
@@ -73,7 +72,6 @@ app.get("/info", checkAuth, (req, res) => {
 });
 
 app.listen(LISTEN_PORT, (err) => {
-  /* eslint-disable no-console */
   if (err) return console.log(err);
 
   console.log(`Listening at port ${LISTEN_PORT}`);
