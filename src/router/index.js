@@ -66,7 +66,7 @@ router.beforeEach((to, from, next) => {
   }
   else if (!auth && to.meta.requiredAuth) {
     store.commit('auth/updateLastMessage', 'You need to login before accessing this page.')
-    return next({ path: '/login' });
+    return next({ path: '/' });
   }
 
   return next();
