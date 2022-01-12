@@ -43,15 +43,8 @@
           >
             Logout
           </li>
-          <li class="nav-item " v-else>
-            <router-link to="/login" class="nav-link">
-              Login</router-link
-            >
-          </li>
-    
-    
     <router-link v-if="!loginStatus" to="/register" class="nav-link"><button type="button" class="btn btn-primary">
-        Sign Up
+        <img src="../assets/Discord-Logo-White.png" style="width:20px"/> Login with Discord
       </button></router-link>
         </ul>
       </div>
