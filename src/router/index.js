@@ -6,7 +6,7 @@ import Login_form from '@/components/Login.vue'
 import HomePage from '@/components/Home.vue'
 import DashBoard from '@/components/Dashboard.vue'
 import store from '@/store/index'
-import RegiStration from '@/components/Register.vue'
+import Discord_ from '@/components/DisCord.vue'
 
 const routes = [
   {
@@ -31,7 +31,7 @@ const routes = [
   },
   {
     path: '/discord',
-    component: RegiStration,
+    component: Discord_,
     meta: { requiredAuth: false }
   },
   {

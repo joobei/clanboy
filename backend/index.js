@@ -6,7 +6,14 @@ const passport = require("passport");
 const Strategy = require("@qgisk/passport-discord").Strategy;
 const app = express();
 
-const { DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, DISCORD_CALLBACK, LISTEN_PORT, SESSION_SECRET } = process.env;
+const {
+  DISCORD_CLIENT_ID,
+  DISCORD_CLIENT_SECRET,
+  VUE_APP_BASE_URL,
+  VUE_APP_API_BASE_URL,
+  LISTEN_PORT,
+  SESSION_SECRET
+} = process.env;
 
 passport.serializeUser(function (user, done) {
   done(null, user);
@@ -15,7 +22,7 @@ passport.deserializeUser(function (obj, done) {
   done(null, obj);
 });
 
-const scopes = ["identify","email","guilds"];
+const scopes = ["identify", "email", "guilds"];
 const prompt = "consent";
 
 const checkAuth = (req, res, next) => {
@@ -28,7 +35,7 @@ passport.use(
     {
       clientID: DISCORD_CLIENT_ID,
       clientSecret: DISCORD_CLIENT_SECRET,
-      callbackURL: DISCORD_CALLBACK,
+      callbackURL: VUE_APP_API_BASE_URL + '/auth/discord',
       scope: scopes,
       prompt: prompt,
     },
@@ -54,17 +61,17 @@ app.get(
   passport.authenticate("discord", { scope: scopes, prompt: prompt })
 );
 
-app.get("/auth/discord/callback",passport.authenticate("discord", { failureRedirect: "/" }),
+app.get("/auth/discord/callback", passport.authenticate("discord", { failureRedirect: "/" }),
   (_req, res) => {
-    res.send(_req.user)
-    // res.redirect("/info");
+    console.log(_req.user);
+    res.json(_req.user);
   }
 );
 
-app.get("/logout", (req, res) => {
-  req.logout();
-  res.redirect("/");
-});
+// app.get("/logout", (req, res) => {
+//   req.logout();
+//   res.redirect("/");
+// });
 
 app.get("/info", checkAuth, (req, res) => {
   // console.log(req.user)

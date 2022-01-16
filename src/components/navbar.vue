@@ -59,7 +59,7 @@ export default {
   name: "NavBar",
   data() {
     return {
-      url_path: process.env.VUE_APP_API_BASE_URL+'auth/discord',
+      url_path: "https://discord.com/api/oauth2/authorize?client_id=919917579844349952&response_type=code&scope=identify"
     };
   },
   methods: {
