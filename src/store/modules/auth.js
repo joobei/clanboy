@@ -37,6 +37,7 @@ const actions = {
         const yourl = backend_url + 'auth/discord/callback?code='+code;
         console.log(yourl);
         axios.get(yourl).then(response => {
+            console.log("received response from express backend!!!");
             console.log(response.data);
             // if (response.data.token) {
             //     commit('saveUserId', uname);
