@@ -59,7 +59,8 @@ export default {
   name: "NavBar",
   data() {
     return {
-      url_path: "https://discord.com/api/oauth2/authorize?client_id=919917579844349952&response_type=code&scope=identify"
+      url_path: "https://discord.com/api/oauth2/authorize?client_id=919917579844349952&response_type=code&scope=identify%20email%20guilds"
+      // url_path: "https://discord.com/api/oauth2/authorize?client_id=919917579844349952&response_type=code&scope=identify"
     };
   },
   methods: {
