@@ -1,20 +1,20 @@
 require("dotenv").config();
 
-const express = require("express");
-const session = require("express-session");
-const passport = require("passport");
-const Strategy = require("@qgisk/passport-discord").Strategy;
-const app = express();
+const express = require("express"),
+  session = require("express-session"),
+  passport = require("passport"),
+  Strategy = require("@qgisk/passport-discord").Strategy,
+  app = express()
 
-app.use(function(req, res, next) {
-  req.socket.on("error", function() {
-
-  });
-  res.socket.on("error", function() {
+app.use(function (req, res, next) {
+  req.socket.on("error", function () {
 
   });
-  next();
-});
+  res.socket.on("error", function () {
+
+  });
+  next()
+})
 
 const {
   DISCORD_CLIENT_ID,
@@ -22,7 +22,8 @@ const {
   VUE_APP_BASE_URL,
   VUE_APP_API_BASE_URL,
   LISTEN_PORT,
-  SESSION_SECRET
+  SESSION_SECRET,
+  MY_CLAN_NAME
 } = process.env;
 
 passport.serializeUser(function (user, done) {
@@ -68,9 +69,21 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get("/auth/discord/callback", passport.authenticate("discord"),
-  (_req, res, next) => {
-    console.log(_req.user);
-    res.json(_req.user);
+  (_req, res) => {
+    // console.log(_req.user);
+    // res.json(_req.user);
+    const in_discord = _req.user.guilds.find(x => x.name === MY_CLAN_NAME)
+    // console.log("In discord" + in_discord)
+    if (in_discord) {
+      console.log("SUCCESS!!");
+      res.status(200).json(_req.user);
+      return;
+    }
+    else {
+      res.status(200).json({ 'response': 'not my user' });
+      console.log("Not my user!!");
+      return;
+    }
   }
 );
 

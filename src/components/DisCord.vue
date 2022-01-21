@@ -12,9 +12,7 @@ export default {
   },
   mounted() {
     console.log(this.$route.query.code);
-    this.discord_info = "http://localhost:5000/auth/discord/callback?code="+
-      this.$route.query.code;
-    this.$store.dispatch("auth/discord_login", this.$route.query.code);
+    this.discord_info = this.$store.dispatch("auth/discord_login", this.$route.query.code);
   },
 };
 </script>
