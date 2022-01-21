@@ -6,6 +6,16 @@ const passport = require("passport");
 const Strategy = require("@qgisk/passport-discord").Strategy;
 const app = express();
 
+app.use(function(req, res, next) {
+  req.socket.on("error", function() {
+
+  });
+  res.socket.on("error", function() {
+
+  });
+  next();
+});
+
 const {
   DISCORD_CLIENT_ID,
   DISCORD_CLIENT_SECRET,
@@ -56,27 +66,14 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-app.get(
-  "/auth/discord",
-  passport.authenticate("discord", { scope: scopes, prompt: prompt })
-);
 
-app.get("/auth/discord/callback", passport.authenticate("discord", { failureRedirect: "/" }),
-  (_req, res) => {
+app.get("/auth/discord/callback", passport.authenticate("discord"),
+  (_req, res, next) => {
     console.log(_req.user);
     res.json(_req.user);
   }
 );
 
-// app.get("/logout", (req, res) => {
-//   req.logout();
-//   res.redirect("/");
-// });
-
-app.get("/info", checkAuth, (req, res) => {
-  // console.log(req.user)
-  res.json(req.user);
-});
 
 app.listen(LISTEN_PORT, (err) => {
   if (err) return console.log(err);
