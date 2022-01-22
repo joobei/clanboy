@@ -6,6 +6,8 @@ const express = require("express"),
   Strategy = require("@qgisk/passport-discord").Strategy,
   app = express()
 
+let userModel = require("./user.js")
+
 app.use(function (req, res, next) {
   req.socket.on("error", function () {
 
@@ -68,15 +70,34 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+//Find user in database
+//if not, create him
+
+
 app.get("/auth/discord/callback", passport.authenticate("discord"),
   (_req, res) => {
-    // console.log(_req.user);
-    // res.json(_req.user);
     const in_discord = _req.user.guilds.find(x => x.name === MY_CLAN_NAME)
     // console.log("In discord" + in_discord)
     if (in_discord) {
-      console.log("SUCCESS!!");
-      res.status(200).json(_req.user);
+      console.log("User is in our discord.");
+      const user = new userModel({
+        discordId: _req.user.id,
+        discordUsername: _req.user.name,
+        discordAccessToken: _req.user.accessToken,
+        discordAvatar: _req.user.avatar,
+        discordDiscriminator: _req.user.discriminator,
+        discordGuildRole: null,
+        fetchedAt: _req.user.fetchedAt
+      })
+      userModel.findOneAndUpdate(user, { upsert: true, new:true }, (err, docs) => {
+        if (err) {
+          console.log(err)
+        }
+        else {
+          console.log("Updated User : ", docs);
+          res.status(200).json(docs);
+        }
+      })
       return;
     }
     else {
