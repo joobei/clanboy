@@ -7,6 +7,7 @@ const express = require("express"),
   app = express()
 
 let userModel = require("./user.js")
+let Match = require("./match")
 
 app.use(function (req, res, next) {
   req.socket.on("error", function () {
@@ -18,10 +19,10 @@ app.use(function (req, res, next) {
   next()
 })
 
-const {
+//these will need to be configured in .env
+const { 
   DISCORD_CLIENT_ID,
   DISCORD_CLIENT_SECRET,
-  VUE_APP_BASE_URL,
   VUE_APP_API_BASE_URL,
   LISTEN_PORT,
   SESSION_SECRET,
@@ -70,10 +71,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-//Find user in database
-//if not, create him
-
-
 app.get("/auth/discord/callback", passport.authenticate("discord"),
   (_req, res) => {
     const in_discord = _req.user.guilds.find(x => x.name === MY_CLAN_NAME)
@@ -112,8 +109,11 @@ app.get("/auth/discord/callback", passport.authenticate("discord"),
       return;
     }
   }
-);
+)
 
+app.get("/matches",checkAuth,(req,res) => {
+  res.send(Match.find())
+})
 
 app.listen(LISTEN_PORT, (err) => {
   if (err) return console.log(err);
