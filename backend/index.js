@@ -80,7 +80,7 @@ app.get("/auth/discord/callback", passport.authenticate("discord"),
     // console.log("In discord" + in_discord)
     if (in_discord) {
       console.log("User is in our discord.");
-      const user = new userModel({
+      let user = {
         discordId: _req.user.id,
         discordUsername: _req.user.username,
         discordAccessToken: _req.user.accessToken,
@@ -88,8 +88,8 @@ app.get("/auth/discord/callback", passport.authenticate("discord"),
         discordDiscriminator: _req.user.discriminator,
         discordGuildRole: "Democrat",
         fetchedAt: _req.user.fetchedAt
-      })
-      userModel.findOneAndUpdate({discordId: _req.user.id},user, {
+      }
+      userModel.findOneAndUpdate({ discordId: _req.user.id }, user, {
         upsert: true,
         new: true
       }, (err, doc) => {
@@ -98,7 +98,10 @@ app.get("/auth/discord/callback", passport.authenticate("discord"),
         }
         else {
           console.log("Updated User : ", doc);
-          res.status(200).json(doc);
+          res.status(200).json({
+            username: doc.discordUsername,
+            token: doc.discordAccessToken
+          });
         }
       })
       return;
