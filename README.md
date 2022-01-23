@@ -1,6 +1,13 @@
 # clanboy
 
-Clanboy is a clan management website initially designed for Hell Let Loose, can be adapted to any clan.
+Clanboy is a clan management website initially designed for Hell Let Loose, can be adapted to any clan. It is made based on Express.js, Vue3, mongoose and passport.js among others.
+
+## Requirements
+```
+node.js 17
+mongodb
+check .env.example
+```
 
 ## Project setup
 ```
@@ -16,11 +23,3 @@ npm run serve
 ```
 npm run build
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
