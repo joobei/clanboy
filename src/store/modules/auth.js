@@ -41,12 +41,12 @@ const actions = {
         axios.get(yourl).then(response => {
             console.log("received response from express backend!!!")
             console.log(response.data)
-            // if (response.data.token) {
-            //     commit('saveUserId', uname);
-            //     commit('saveTokenData', response.data.token);
-            //     commit('updateLastMessage', "Login Successful.");
-            //     commit('setLoginStatus',true);
-            // }
+            if (response.data.token) {
+                commit('saveUserId', response.data.username);
+                commit('saveTokenData', response.data.token);
+                commit('updateLastMessage', "Login Successful.");
+                commit('setLoginStatus',true);
+            }
         }).catch((error) => {
             console.log(error.response.data);
             commit('updateLastMessage', "Login failed. Please verify your username/password.");

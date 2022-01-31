@@ -20,7 +20,7 @@ app.use(function (req, res, next) {
 })
 
 //these will need to be configured in .env
-const { 
+const {
   DISCORD_CLIENT_ID,
   DISCORD_CLIENT_SECRET,
   VUE_APP_API_BASE_URL,
@@ -38,11 +38,6 @@ passport.deserializeUser(function (obj, done) {
 
 const scopes = ["identify", "email", "guilds"];
 const prompt = "consent";
-
-const checkAuth = (req, res, next) => {
-  if (req.isAuthenticated()) return next();
-  res.send("not logged in :(");
-};
 
 passport.use(
   new Strategy(
@@ -111,8 +106,22 @@ app.get("/auth/discord/callback", passport.authenticate("discord"),
   }
 )
 
-app.get("/matches",checkAuth,(req,res) => {
-  res.send(Match.find())
+const checkAuth = (req, res, next) => {
+  // console.log(req.headers.authorization)
+  const header = req.headers.authorization.split(" ")[1]
+  let found = userModel.findOne({ discordAccessToken: header })
+  if (found) {
+    next();
+  }
+  else {
+    return res.status(403).json({ error: 'No credentials sent!' });
+  }
+};
+
+app.get("/matches", checkAuth, (req, res) => {
+  Match.find({}, (error, result) => {
+    res.json(result)
+  })
 })
 
 app.listen(LISTEN_PORT, (err) => {
