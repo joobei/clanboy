@@ -33,23 +33,25 @@ const getters = {
 };
 
 const actions = {
-    async login({ commit }, payload) {
-        const uname = payload.username;
-        axios.post(backend_url + 'login', {
-            username: payload.username,
-            password: payload.password
-        }).then(response => {
+    async discord_login({ commit }, code) {
+    // async discord_login(code) {
+        const yourl = backend_url + 'auth/discord/callback?code='+code
+        console.log("axios making request to express")
+        console.log(yourl)
+        axios.get(yourl).then(response => {
+            console.log("received response from express backend!!!")
+            console.log(response.data)
             if (response.data.token) {
-                commit('saveUserId', uname);
+                commit('saveUserId', response.data.username);
                 commit('saveTokenData', response.data.token);
                 commit('updateLastMessage', "Login Successful.");
                 commit('setLoginStatus',true);
             }
         }).catch((error) => {
-            console.log(error);
+            console.log(error.response.data);
             commit('updateLastMessage', "Login failed. Please verify your username/password.");
 
-        });
+        })
     },
     recover_token_from_local_storage({commit}){
         if(localStorage.getItem("access_token")) {

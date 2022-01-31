@@ -16,18 +16,15 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <router-link to="/" class="nav-link">Home
-            </router-link>
+            <router-link to="/" class="nav-link">Home </router-link>
           </li>
-          
+
           <li class="nav-item">
             <router-link to="/matchlist" class="nav-link">
               Match List</router-link
             >
           </li>
-          <li class="nav-item">
-            
-          </li>
+          <li class="nav-item"></li>
         </ul>
         <ul class="navbar-nav ms-auto">
           <li class="nav-item" v-if="loginStatus">
@@ -43,17 +40,12 @@
           >
             Logout
           </li>
-          <!-- <li class="nav-item " v-else>
-            <router-link to="/login" class="nav-link">
-              Login</router-link
-            >
-          </li> -->
-    
-    
-    <!-- <a v-if="!loginStatus" href="https://discord.com/api/oauth2/authorize?client_id=919917579844349952&redirect_uri=https%3A%2F%2Flocalhost%3A8080%2Fdiscord&response_type=code&scope=identify%20email" class="nav-link"><button type="button" class="btn btn-primary"> -->
-      <a v-if="!loginStatus" href="http://localhost:5000/auth/discord" class="nav-link"><button type="button" class="btn btn-primary">
-        Login using Discord
-      </button></a>
+          <a v-if="!loginStatus" class="nav-link" v-bind:href="url_path"
+            ><button type="button" class="btn btn-primary">
+              <img src="../assets/Discord-Logo-White.png" style="width: 20px" />
+              Login with Discord
+            </button></a
+          >
         </ul>
       </div>
     </div>
@@ -65,7 +57,11 @@ import { mapState } from "vuex";
 
 export default {
   name: "NavBar",
-  setup() {},
+  data() {
+    return {
+      url_path: "https://discord.com/api/oauth2/authorize?client_id=919917579844349952&response_type=code&scope=identify%20email%20guilds"
+    };
+  },
   methods: {
     logout: function () {
       this.$store.dispatch("auth/logout").then(() => {
@@ -73,6 +69,6 @@ export default {
       });
     },
   },
-  computed: mapState('auth', ["loginStatus"]),
+  computed: mapState("auth", ["loginStatus"]),
 };
 </script>

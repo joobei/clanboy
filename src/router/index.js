@@ -6,7 +6,7 @@ import Login_form from '@/components/Login.vue'
 import HomePage from '@/components/Home.vue'
 import DashBoard from '@/components/Dashboard.vue'
 import store from '@/store/index'
-import RegiStration from '@/components/Register.vue'
+import Discord_ from '@/components/DisCord.vue'
 
 const routes = [
   {
@@ -30,8 +30,8 @@ const routes = [
     meta: { requiredAuth: false }
   },
   {
-    path: '/register',
-    component: RegiStration,
+    path: '/discord',
+    component: Discord_,
     meta: { requiredAuth: false }
   },
   {
@@ -56,17 +56,17 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   //fetch if user is logged in
   var auth = store.getters["auth/userIsLoggedIn"];
-  if(!auth) {
+  if (!auth) {
     store.dispatch('auth/recover_token_from_local_storage');
     auth = store.getters["auth/userIsLoggedIn"];
   }
 
   if (auth && !to.meta.requiredAuth) {
-      return next();
+    return next();
   }
   else if (!auth && to.meta.requiredAuth) {
-    store.commit('auth/updateLastMessage','You need to login before accessing this page.')
-    return next({ path: '/login' });
+    store.commit('auth/updateLastMessage', 'You need to login before accessing this page.')
+    return next({ path: '/' });
   }
 
   return next();

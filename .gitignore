@@ -2,8 +2,6 @@
 node_modules
 /dist
 
-
-
 # local env files
 .env.local
 .env.*.local
@@ -22,5 +20,4 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
-backend/key.txt
 .env
