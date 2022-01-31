@@ -1,9 +1,9 @@
-import { tokenAlive } from "../../shared/jwtHelper";
-// import jwt_decode from "jwt-decode";
 import axios from "axios";
 
-//todo read this BASE_URL from environment variable
-const backend_url = "http://localhost:5000/";
+//these will need to be configured in .env
+const {
+    BACKEND_URL
+  } = process.env;
 
 const state = () => ({
     token: "",
@@ -21,12 +21,12 @@ const getters = {
     userIsLoggedIn(state) {
         return state.loginStatus;
     },
-    isTokenActive(state) {
-        if (!state.authData.token) {
-            return false;
-        }
-        return tokenAlive(state.authData.tokenExp);
-    },
+    // isTokenActive(state) {
+    //     if (!state.authData.token) {
+    //         return false;
+    //     }
+    //     return tokenAlive(state.authData.tokenExp);
+    // },
     getLastMesssage(state) {
         return state.lastMessage;
     }
@@ -34,8 +34,7 @@ const getters = {
 
 const actions = {
     async discord_login({ commit }, code) {
-    // async discord_login(code) {
-        const yourl = backend_url + 'auth/discord/callback?code='+code
+        const yourl = BACKEND_URL + 'auth/discord/callback?code=' + code
         console.log("axios making request to express")
         console.log(yourl)
         axios.get(yourl).then(response => {
@@ -45,7 +44,7 @@ const actions = {
                 commit('saveUserId', response.data.username);
                 commit('saveTokenData', response.data.token);
                 commit('updateLastMessage', "Login Successful.");
-                commit('setLoginStatus',true);
+                commit('setLoginStatus', true);
             }
         }).catch((error) => {
             console.log(error.response.data);
@@ -53,10 +52,10 @@ const actions = {
 
         })
     },
-    recover_token_from_local_storage({commit}){
-        if(localStorage.getItem("access_token")) {
+    recover_token_from_local_storage({ commit }) {
+        if (localStorage.getItem("access_token")) {
             axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.access_token}`
-            commit('setLoginStatus',true)
+            commit('setLoginStatus', true)
             return true
         }
         else {
@@ -66,15 +65,7 @@ const actions = {
     logout({ commit }) {
         commit('clearLoginData');
     },
-    register({ commit }, payload) {
-        axios.post(backend_url + 'register', {
-            username: payload.username,
-            password: payload.password
-        }).then(response => {
-            commit('updateLastMessage', response.data.message);
-        });
-    },
-    clear_pending_message({commit}) {
+    clear_pending_message({ commit }) {
         commit('clear_message_queue');
     }
 };
