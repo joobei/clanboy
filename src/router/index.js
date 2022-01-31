@@ -1,8 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MatchList from '@/components/Matchlist.vue'
-import MemberList from '@/components/Memberlist.vue'
 import Single_Match from '@/components/Single_Match.vue'
-import Login_form from '@/components/Login.vue'
 import HomePage from '@/components/Home.vue'
 import DashBoard from '@/components/Dashboard.vue'
 import store from '@/store/index'
@@ -22,22 +20,12 @@ const routes = [
   {
     path: '/matchlist',
     component: MatchList,
-    meta: { requiredAuth: true }
-  },
-  {
-    path: '/login',
-    component: Login_form,
     meta: { requiredAuth: false }
   },
   {
     path: '/discord',
     component: Discord_,
     meta: { requiredAuth: false }
-  },
-  {
-    path: '/memberlist',
-    component: MemberList,
-    meta: { requiredAuth: true }
   },
   {
     path: '/match/:id',

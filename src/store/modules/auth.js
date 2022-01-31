@@ -21,12 +21,6 @@ const getters = {
     userIsLoggedIn(state) {
         return state.loginStatus;
     },
-    // isTokenActive(state) {
-    //     if (!state.authData.token) {
-    //         return false;
-    //     }
-    //     return tokenAlive(state.authData.tokenExp);
-    // },
     getLastMesssage(state) {
         return state.lastMessage;
     }

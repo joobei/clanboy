@@ -124,7 +124,11 @@ const checkAuth = (req, res, next) => {
   }
 };
 
-app.get("/matches", checkAuth, (req, res) => {
+app.get("/matches", (req, res) => {
+  Match.find({}, (error, result) => {
+    res.json(result)
+  })
+})
   Match.find({}, (error, result) => {
     res.json(result)
   })
