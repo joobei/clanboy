@@ -2,7 +2,7 @@ import axios from "axios";
 
 //these will need to be configured in .env
 const {
-    BACKEND_URL
+    VUE_APP_BACKEND_URL
   } = process.env;
 
 const state = () => ({
@@ -34,7 +34,7 @@ const getters = {
 
 const actions = {
     async discord_login({ commit }, code) {
-        const yourl = BACKEND_URL + 'auth/discord/callback?code=' + code
+        const yourl = VUE_APP_BACKEND_URL + '/auth/discord/callback?code=' + code
         console.log("axios making request to express")
         console.log(yourl)
         axios.get(yourl).then(response => {
