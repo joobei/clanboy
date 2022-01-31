@@ -9,6 +9,12 @@ const express = require("express"),
 let userModel = require("./user.js")
 let Match = require("./match")
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:8080");
+  res.header("Access-Control-Allow-Headers", "authorization, Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.use(function (req, res, next) {
   req.socket.on("error", function () {
 
