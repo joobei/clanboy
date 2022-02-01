@@ -129,10 +129,6 @@ app.get("/matches", (req, res) => {
     res.json(result)
   })
 })
-  Match.find({}, (error, result) => {
-    res.json(result)
-  })
-})
 
 app.listen(LISTEN_PORT, (err) => {
   if (err) return console.log(err);
