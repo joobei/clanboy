@@ -1,7 +1,7 @@
     <template>
   <div class="container-sm">
     <h1>Dashboard Page</h1>
-    <div>UserName -- {{ username }}</div>
+    <div>UserName -- {{ this.username }}</div>
   </div>
 </template>
     <script>
