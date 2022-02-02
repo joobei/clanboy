@@ -29,11 +29,7 @@ const getters = {
 const actions = {
     async discord_login({ commit }, code) {
         const yourl = VUE_APP_BACKEND_URL + '/auth/discord/callback?code=' + code
-        console.log("axios making request to express")
-        console.log(yourl)
         axios.get(yourl).then(response => {
-            console.log("received response from express backend!!!")
-            console.log(response.data)
             if (response.data.token) {
                 commit('saveUserId', response.data.username);
                 commit('saveTokenData', response.data.token);
