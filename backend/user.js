@@ -9,7 +9,7 @@ var userSchema = new mongoose.Schema({
   fetchedAt: Date
 });
 
-mongoose.connect('mongodb://127.0.0.1:27017/deemos', {
+mongoose.connect(process.env.DB_CONNECTION_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
