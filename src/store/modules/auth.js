@@ -37,8 +37,7 @@ const actions = {
                 commit('setLoginStatus', true);
             }
         }).catch((error) => {
-            console.log(error.response.data);
-            commit('updateLastMessage', "Login failed. Please verify your username/password.");
+            commit('updateLastMessage', 'Login failed. '+error);
 
         })
     },
