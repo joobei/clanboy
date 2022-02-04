@@ -5,6 +5,7 @@ import HomePage from '@/components/Home.vue'
 import DashBoard from '@/components/Dashboard.vue'
 import store from '@/store/index'
 import Discord_ from '@/components/DisCord.vue'
+import NotFound from '@/components/not_found.vue'
 
 const routes = [
   {
@@ -33,6 +34,11 @@ const routes = [
     name: "single_match",
     props: true,
     meta: { requiredAuth: true }
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    component: NotFound,
+    meta: { requiredAuth: false }
   }
 ]
 
