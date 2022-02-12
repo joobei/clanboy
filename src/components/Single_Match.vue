@@ -20,10 +20,10 @@
       </dd>
       <dt class="col-sm-3">Side</dt>
       <dd class="col-sm-9">{{ match_info.side }}</dd>
-      <dt class="col-sm-3">Attendees</dt>
+      <!-- <dt class="col-sm-3">Attendees</dt>
       <dd class="col-sm-9">{{ match_info.players }}</dd>
       <dt class="col-sm-3">Reserves</dt>
-      <dd class="col-sm-9">{{ match_info.reserves }}</dd>
+      <dd class="col-sm-9">{{ match_info.reserves }}</dd> -->
       <dt class="col-sm-3">Outcome</dt>
       <dd class="col-sm-9">{{ match_info.outcome }}</dd>
     </dl>
@@ -37,7 +37,7 @@
     >
       Sign Myself Up
     </button>
-    <button
+    <!-- <button
       type="button"
       class="btn btn-secondary"
       data-toggle="button"
@@ -45,7 +45,7 @@
       autocomplete="off"
     >
       Bring a Squad
-    </button>
+    </button> -->
   </div>
 </template>
 
