@@ -42,8 +42,13 @@ const actions = {
         })
     },
     recover_token_from_local_storage({ commit }) {
-        if (localStorage.getItem("access_token")) {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.access_token}`
+        if (localStorage.getItem("token")) {
+            const temp_data = {
+                username : localStorage.getItem("username"),
+                token : localStorage.getItem("token"),
+                discord_id : localStorage.getItem("discord_id")
+            }
+            commit('saveData',temp_data)
             commit('setLoginStatus', true)
             return true
         }
@@ -70,9 +75,11 @@ const mutations = {
     saveData(state, data) {
         state.username = data.username
         state.discord_id = data.discord_id
+        state.token = data.token;
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("username", data.username);
+        localStorage.setItem("discord_id", data.discord_id);
         axios.defaults.headers.common['Authorization'] = `Bearer ${data}`
-        localStorage.setItem("access_token", data);
-        state.token = data;
     },
     setLoginStatus(state, value) {
         state.loginStatus = value;

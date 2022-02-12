@@ -79,7 +79,6 @@ app.get("/auth/discord/callback", passport.authenticate("discord"),
     const in_discord = _req.user.guilds.find(x => x.name === MY_CLAN_NAME)
     // console.log("In discord" + in_discord)
     if (in_discord) {
-      console.log("User is in our discord.");
       let user = {
         discordId: _req.user.id,
         discordUsername: _req.user.username,
@@ -142,7 +141,7 @@ app.post('/signup', checkAuth, (req, res) => {
     else {
       // console.log("Result : ", docs.players.find);
       if (docs.players.includes(req.body.discord_id)) {
-        res.status(200).json({ 'response': 'already' })
+        res.status(200).json({ 'response': 'You are already signed up for this match!' })
       }
       else {
         docs.players.push(req.body.discord_id)
@@ -155,7 +154,7 @@ app.post('/signup', checkAuth, (req, res) => {
           }
         })
 
-        res.status(200).json({ 'response': 'signed_up' })
+        res.status(200).json({ 'response': 'Thank you for signing up!' })
       }
     }
   });
