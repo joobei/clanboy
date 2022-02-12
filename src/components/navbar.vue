@@ -29,7 +29,7 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item" v-if="loginStatus">
             <router-link to="/dashboard" class="nav-link">
-              Dashboard</router-link
+              {{username}}</router-link
             >
           </li>
           <li
@@ -70,6 +70,6 @@ export default {
       });
     },
   },
-  computed: mapState("auth", ["loginStatus"]),
+  computed: mapState("auth", ["username","loginStatus"]),
 };
 </script>
