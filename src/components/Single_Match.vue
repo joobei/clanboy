@@ -33,6 +33,7 @@
       data-toggle="button"
       aria-pressed="false"
       autocomplete="off"
+      @click="signUpSolo"
     >
       Sign Myself Up
     </button>
@@ -53,10 +54,22 @@ export default {
   name: "Single_Match",
   data() {
     return {
-      match_info: '',
+      match_info: "",
     };
   },
   methods: {
+    async signUpSolo() {
+      if(this.$store.getters["auth/getAuthData"].discord_id === "") {
+        console.log("your discord id is empty again!")
+
+      }
+      else {
+      await this.$store.dispatch("match/signUpSolo", {
+        match_id: this.$route.params.id,
+        discord_id: this.$store.getters["auth/getAuthData"].discord_id
+      });
+      }
+    },
     isoFormatDMY(d) {
       function pad(n) {
         return (n < 10 ? "0" : "") + n;
@@ -82,6 +95,7 @@ export default {
     getMatches() {
       return this.$store.getters["match/getMatchData"];
     },
+    
   },
   created() {
     this.match_info = this.getMatches.find(

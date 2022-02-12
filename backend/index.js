@@ -4,16 +4,18 @@ const express = require("express"),
   session = require("express-session"),
   passport = require("passport"),
   Strategy = require("@qgisk/passport-discord").Strategy,
-  app = express()
+  app = express(),
+  bodyParser = require('body-parser')
 
 let userModel = require("./user.js")
 let Match = require("./match")
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "http://localhost:8080");
   res.header("Access-Control-Allow-Headers", "authorization, Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+app.use(bodyParser.json());
 
 app.use(function (req, res, next) {
   req.socket.on("error", function () {
@@ -84,7 +86,7 @@ app.get("/auth/discord/callback", passport.authenticate("discord"),
         discordAccessToken: _req.user.accessToken,
         discordAvatar: _req.user.avatar,
         discordDiscriminator: _req.user.discriminator,
-        discordGuildRole: "Democrat",
+        discordGuildRole: "Democrat", //todo read actual role!
         fetchedAt: _req.user.fetchedAt
       }
       userModel.findOneAndUpdate({ discordId: _req.user.id }, user, {
@@ -97,7 +99,8 @@ app.get("/auth/discord/callback", passport.authenticate("discord"),
         else {
           console.log("Updated User : ", doc);
           res.status(200).json({
-            username: doc.discordUsername,
+            username: doc.discordUsername + '#' + doc.discordDiscriminator,
+            discord_id: doc.discordId,
             token: doc.discordAccessToken
           });
         }
@@ -128,6 +131,34 @@ app.get("/matches", (req, res) => {
   Match.find({}, (error, result) => {
     res.json(result)
   })
+})
+
+app.post('/signup', checkAuth, (req, res) => {
+  const match_id = req.body.match_id
+  Match.findById(match_id, function (err, docs) {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      // console.log("Result : ", docs.players.find);
+      if (docs.players.includes(req.body.discord_id)) {
+        res.status(200).json({ 'response': 'already' })
+      }
+      else {
+        docs.players.push(req.body.discord_id)
+        Match.findByIdAndUpdate(match_id, docs, function (err, newdoc) {
+          if (err) {
+            console.log(err);
+          }
+          else {
+            console.log(newdoc)
+          }
+        })
+
+        res.status(200).json({ 'response': 'signed_up' })
+      }
+    }
+  });
 })
 
 app.listen(LISTEN_PORT, (err) => {

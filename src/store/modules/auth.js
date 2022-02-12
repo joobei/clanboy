@@ -3,11 +3,12 @@ import axios from "axios";
 //these will need to be configured in .env
 const {
     VUE_APP_BACKEND_URL
-  } = process.env;
+} = process.env;
 
 const state = () => ({
     token: "",
     username: "",
+    discord_id: "",
     loginStatus: false,
     lastMessage: "",
     pendingMessage: false
@@ -31,13 +32,12 @@ const actions = {
         const yourl = VUE_APP_BACKEND_URL + '/auth/discord/callback?code=' + code
         axios.get(yourl).then(response => {
             if (response.data.token) {
-                commit('saveUserId', response.data.username);
-                commit('saveTokenData', response.data.token);
+                commit('saveData', response.data);
                 commit('updateLastMessage', "Login Successful.");
                 commit('setLoginStatus', true);
             }
         }).catch((error) => {
-            commit('updateLastMessage', 'Login failed. '+error);
+            commit('updateLastMessage', 'Login failed. ' + error);
 
         })
     },
@@ -56,6 +56,9 @@ const actions = {
     },
     clear_pending_message({ commit }) {
         commit('clear_message_queue');
+    },
+    update_last_message({commit},msg) {
+        commit('updateLastMessage',msg);
     }
 };
 
@@ -64,10 +67,9 @@ const mutations = {
     clear_message_queue(state) {
         state.pendingMessage = false;
     },
-    saveUserId(state, id) {
-        state.username = id;
-    },
-    saveTokenData(state, data) {
+    saveData(state, data) {
+        state.username = data.username
+        state.discord_id = data.discord_id
         axios.defaults.headers.common['Authorization'] = `Bearer ${data}`
         localStorage.setItem("access_token", data);
         state.token = data;
