@@ -8,7 +8,8 @@ const express = require("express"),
   bodyParser = require('body-parser')
 
 let userModel = require("./user.js")
-let Match = require("./match")
+let Match = require("./match");
+const { default: axios } = require("axios");
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "http://localhost:8080");
@@ -75,41 +76,61 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get("/auth/discord/callback", passport.authenticate("discord"),
-  (_req, res) => {
+  (_req, _res) => {
     const in_discord = _req.user.guilds.find(x => x.name === MY_CLAN_NAME)
     // console.log("In discord" + in_discord)
     if (in_discord) {
-      let user = {
-        discordId: _req.user.id,
-        discordUsername: _req.user.username,
-        discordAccessToken: _req.user.accessToken,
-        discordAvatar: _req.user.avatar,
-        discordDiscriminator: _req.user.discriminator,
-        discordGuildRole: "Democrat", //todo read actual role!
-        fetchedAt: _req.user.fetchedAt
-      }
-      userModel.findOneAndUpdate({ discordId: _req.user.id }, user, {
-        upsert: true,
-        new: true
-      }, (err, doc) => {
-        if (err) {
-          console.log(err)
+      //first fetch nickaname he uses in the guild
+      return axios.get(`https://discord.com/api/users/@me/guilds/911623996682932254/member`,
+        { headers: { "Authorization": `Bearer ${_req.user.accessToken}` } }
+      ).then(res => {
+//         koc : 912032854987403264
+// supreme court member: 912032986294255646
+// legislator: 912033087255380008
+// democrat: 912034805762363473
+// aspiring: 931870587599601735
+// friend: 912035056166527026
+        console.log(res.data.roles)
+        const is_democrat = res.data.roles.find(role => role === '912034805762363473')
+        if (is_democrat) {
+          // console.log(res)
+          let user = {
+            discord_id: _req.user.id,
+            display_username: res.data.nick,
+            discord_username: _req.user.username,
+            discord_access_token: _req.user.accessToken,
+            discord_avatar: _req.user.avatar,
+            discord_discriminator: _req.user.discriminator,
+            discord_guild_roles: res.data.roles,
+            fetched_at: _req.user.fetchedAt,
+            joined_at: res.data.joined_at
+          }
+          userModel.findOneAndUpdate({ discord_id: _req.user.id }, user, {
+            upsert: true,
+            new: true
+          }, (err, doc) => {
+            if (err) {
+              console.log(err)
+            }
+            else {
+              console.log("Updated User : ", doc);
+              _res.status(200).json({
+                username: doc.display_username,
+                discord_id: doc.discord_id,
+                token: doc.discord_access_token
+              });
+            }
+          })
+          return
         }
         else {
-          console.log("Updated User : ", doc);
-          res.status(200).json({
-            username: doc.discordUsername + '#' + doc.discordDiscriminator,
-            discord_id: doc.discordId,
-            token: doc.discordAccessToken
-          });
+          return _res.status(401).json({ 'message': 'You are not a "Democrat"' })
         }
-      })
-      return;
+      }
+      ).catch(err => console.log(err)) //axios user guild object 
     }
     else {
-      res.status(200).json({ 'response': 'not my user' });
-      console.log("Not my user!!");
-      return;
+      return _res.status(401).json({ 'message': 'You are not a member of Deemos Discord' })
     }
   }
 )
