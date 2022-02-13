@@ -17,16 +17,10 @@ export default {
     };
   },
   computed: mapState("auth", ["lastMessage","pendingMessage"]),
-  methods: {
-    makeVisible() {
-      this.visible = true;
-      setTimeout(() => this.visible = false, 3000);
-    }
-  },
   watch: {
     pendingMessage: function () {
-      this.makeVisible();
-      this.$store.dispatch("auth/clear_pending_message");
+      this.visible = this.pendingMessage
+      setTimeout(() => this.visible = false, 3000);
     },
   },
 };

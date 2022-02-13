@@ -56,13 +56,13 @@ const actions = {
         }
     },
     logout({ commit }) {
-        commit('clearLoginData');
+        commit('clearLoginData')
     },
     clear_pending_message({ commit }) {
-        commit('clear_message_queue');
+        commit('clear_message_queue')
     },
     update_last_message({commit},msg) {
-        commit('updateLastMessage',msg);
+        commit('updateLastMessage',msg)
     }
 };
 
@@ -74,23 +74,27 @@ const mutations = {
     saveData(state, data) {
         state.username = data.username
         state.discord_id = data.discord_id
-        state.token = data.token;
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("username", data.username);
-        localStorage.setItem("discord_id", data.discord_id);
+        state.token = data.token
+        localStorage.setItem("token", data.token)
+        localStorage.setItem("username", data.username)
+        localStorage.setItem("discord_id", data.discord_id)
         axios.defaults.headers.common['Authorization'] = `Bearer ${data}`
     },
     setLoginStatus(state, value) {
-        state.loginStatus = value;
+        state.loginStatus = value
     },
     clearLoginData(state) {
-        localStorage.removeItem("access_token");
-        state.token = '';
-        state.loginStatus = false;
+        localStorage.removeItem("token")
+        localStorage.removeItem("username")
+        localStorage.removeItem("discord_id")
+        state.token = ''
+        state.username = ''
+        state.discord_id = ''
+        state.loginStatus = false
     },
     updateLastMessage(state, value) {
-        state.lastMessage = value;
-        state.pendingMessage = true;
+        state.lastMessage = value
+        state.pendingMessage = true
     }
 };
 
