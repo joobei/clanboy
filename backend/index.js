@@ -10,6 +10,7 @@ const express = require("express"),
 let userModel = require("./user.js")
 let Match = require("./match");
 const { default: axios } = require("axios");
+// const { userSetter } = require("core-js/fn/symbol");
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "http://localhost:8080");
@@ -27,6 +28,15 @@ app.use(function (req, res, next) {
   });
   next()
 })
+
+// koc : 912032854987403264
+// supreme court member: 912032986294255646
+// legislator: 912033087255380008
+// democrat: 912034805762363473
+// aspiring: 931870587599601735
+// friend: 912035056166527026
+const DEMOCRAT_ROLE = '912034805762363473'
+const ASPIRING_DEMOCRAT_ROLE = '931870587599601735'
 
 //these will need to be configured in .env
 const {
@@ -84,14 +94,9 @@ app.get("/auth/discord/callback", passport.authenticate("discord"),
       return axios.get(`https://discord.com/api/users/@me/guilds/911623996682932254/member`,
         { headers: { "Authorization": `Bearer ${_req.user.accessToken}` } }
       ).then(res => {
-//         koc : 912032854987403264
-// supreme court member: 912032986294255646
-// legislator: 912033087255380008
-// democrat: 912034805762363473
-// aspiring: 931870587599601735
-// friend: 912035056166527026
+       
         console.log(res.data.roles)
-        const is_democrat = res.data.roles.find(role => role === '912034805762363473')
+        const is_democrat = res.data.roles.find(role => (role === DEMOCRAT_ROLE || role === ASPIRING_DEMOCRAT_ROLE))
         if (is_democrat) {
           // console.log(res)
           let user = {
@@ -136,16 +141,30 @@ app.get("/auth/discord/callback", passport.authenticate("discord"),
 )
 
 const checkAuth = (req, res, next) => {
-  // console.log(req.headers.authorization)
   const header = req.headers.authorization.split(" ")[1]
-  let found = userModel.findOne({ discordAccessToken: header })
-  if (found) {
-    next();
+
+  userModel.findOne({ discord_access_token: header }, function (err, docs) {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      req.current_user = docs
+      next()
+    }
+  })
+}
+
+const check_permissions = (req, res, next) => {
+  console.log("Check permissions current user:")
+  console.log(req.current_user)
+  const has_role = req.current_user.discord_guild_roles.find(role => (role === DEMOCRAT_ROLE || role === ASPIRING_DEMOCRAT_ROLE))
+  if (has_role) {
+    next()
   }
   else {
-    return res.status(403).json({ error: 'No credentials sent!' });
+    return res.status(401).json({ 'error': 'Only Democrat or Aspiring Democrat can sign up for matches' })
   }
-};
+}
 
 app.get("/matches", (req, res) => {
   Match.find({}, (error, result) => {
@@ -153,7 +172,8 @@ app.get("/matches", (req, res) => {
   })
 })
 
-app.post('/signup', checkAuth, (req, res) => {
+
+app.post('/signup', checkAuth, check_permissions, (req, res) => {
   const match_id = req.body.match_id
   Match.findById(match_id, function (err, docs) {
     if (err) {

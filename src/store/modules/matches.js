@@ -20,13 +20,14 @@ const actions = {
             .then(response => {
                 commit('SET_MATCHES_TO_STATE', response.data);
             }).catch(error => {
-                throw new Error(`API ${error}`);
+                throw new Error(error);
             });
     },
-    async signUpSolo({ commit, dispatch }, match_id) {
-        console.log("Match id before Axios " + JSON.stringify(match_id))
+    async signUpSolo({ commit, dispatch, rootState }, sign_up_data) {
+        const token = rootState.auth.token //pick up token from auth vuex
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
         await axios
-            .post(VUE_APP_BACKEND_URL + "/signup", match_id, {
+            .post(VUE_APP_BACKEND_URL + "/signup", sign_up_data, {
                 headers: {
                     // Overwrite Axios's automatically set Content-Type
                     'Content-Type': 'application/json'
@@ -35,10 +36,14 @@ const actions = {
             .then(res => {
                 console.log("Axios response:")
                 console.log(res.data)
-                dispatch('loadMatches')
+                dispatch('loadMatches') //todo figure out why it doesn't work
                 dispatch('auth/update_last_message', res.data.response, {root:true})
+            }).catch(error => {
+                console.log('Erorr in /signup to API')
+                console.log(error)
+                dispatch('auth/update_last_message', error.response.data.error, {root:true})
             });
-        commit('BALALA')
+        commit('BALALA') //todo update UI/store?
     }
 }
 
