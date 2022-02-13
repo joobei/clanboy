@@ -33,7 +33,7 @@ const routes = [
     component: Single_Match,
     name: "single_match",
     props: true,
-    meta: { requiredAuth: true }
+    meta: { requiredAuth: false }
   },
   {
     path: '/:pathMatch(.*)*',

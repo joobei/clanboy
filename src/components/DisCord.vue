@@ -15,9 +15,9 @@ export default {
     loginStatus: function() {
       this.$router.push('/matchlist')
     },
-    // pendingMessage: function() {
-    //   this.$router.push('/')
-    // }
+    pendingMessage: function() {
+      this.$router.push('/')
+    }
   }
 };
 </script>

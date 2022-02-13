@@ -59,15 +59,17 @@ export default {
   },
   methods: {
     async signUpSolo() {
-      if(this.$store.getters["auth/getAuthData"].discord_id === "") {
-        console.log("your discord id is empty again!")
-
-      }
-      else {
-      await this.$store.dispatch("match/signUpSolo", {
-        match_id: this.$route.params.id,
-        discord_id: this.$store.getters["auth/getAuthData"].discord_id
-      });
+      const signed_in = this.$store.getters["auth/userIsLoggedIn"];
+      if (!signed_in) {
+        this.$store.dispatch(
+          "auth/update_last_message",
+          "Please login before attempting to sign up!"
+        );
+      } else {
+        await this.$store.dispatch("match/signUpSolo", {
+          match_id: this.$route.params.id,
+          discord_id: this.$store.getters["auth/getAuthData"].discord_id,
+        });
       }
     },
     isoFormatDMY(d) {
@@ -95,7 +97,6 @@ export default {
     getMatches() {
       return this.$store.getters["match/getMatchData"];
     },
-    
   },
   created() {
     this.match_info = this.getMatches.find(

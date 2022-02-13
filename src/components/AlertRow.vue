@@ -20,7 +20,8 @@ export default {
   watch: {
     pendingMessage: function () {
       this.visible = this.pendingMessage
-      setTimeout(() => this.visible = false, 3000);
+      setTimeout(() => this.$store.dispatch('auth/clear_pending_message'),3000
+      );
     },
   },
 };
