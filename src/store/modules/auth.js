@@ -37,8 +37,7 @@ const actions = {
                 commit('setLoginStatus', true);
             }
         }).catch((error) => {
-            commit('updateLastMessage', 'Login failed. ' + error);
-
+            commit('updateLastMessage', error.response.data.message)
         })
     },
     recover_token_from_local_storage({ commit }) {
