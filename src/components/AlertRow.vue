@@ -18,7 +18,7 @@ export default {
   },
   computed: mapState("auth", ["lastMessage","pendingMessage"]),
   watch: {
-    pendingMessage: function () {
+    pendingMessage: function () { //todo this might backfire when pending message changes too quickly
       this.visible = this.pendingMessage
       setTimeout(() => this.$store.dispatch('auth/clear_pending_message'),3000
       );
