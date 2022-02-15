@@ -1,5 +1,16 @@
 require("dotenv").config();
 
+//these will need to be configured in .env
+const {
+  DISCORD_CLIENT_ID,
+  DISCORD_CLIENT_SECRET,
+  VUE_APP_API_BASE_URL,
+  LISTEN_PORT,
+  SESSION_SECRET,
+  MY_CLAN_NAME,
+  CORS_ALLOW_FROM
+} = process.env;
+
 const express = require("express"),
   session = require("express-session"),
   passport = require("passport"),
@@ -10,10 +21,9 @@ const express = require("express"),
 let userModel = require("./user.js")
 let Match = require("./match");
 const { default: axios } = require("axios");
-// const { userSetter } = require("core-js/fn/symbol");
 
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:8080");
+  res.header("Access-Control-Allow-Origin", CORS_ALLOW_FROM);
   res.header("Access-Control-Allow-Headers", "authorization, Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
@@ -39,15 +49,6 @@ const DEMOCRAT_ROLE = '912034805762363473'
 const ASPIRING_DEMOCRAT_ROLE = '931870587599601735'
 const MY_GUILD_ID = '911623996682932254' //move to env variable
 
-//these will need to be configured in .env
-const {
-  DISCORD_CLIENT_ID,
-  DISCORD_CLIENT_SECRET,
-  VUE_APP_API_BASE_URL,
-  LISTEN_PORT,
-  SESSION_SECRET,
-  MY_CLAN_NAME
-} = process.env;
 
 passport.serializeUser(function (user, done) {
   done(null, user);
