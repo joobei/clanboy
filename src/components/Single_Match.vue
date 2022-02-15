@@ -20,14 +20,15 @@
       </dd>
       <dt class="col-sm-3">Side</dt>
       <dd class="col-sm-9">{{ match_info.side }}</dd>
-      <!-- <dt class="col-sm-3">Attendees</dt>
+      <dt class="col-sm-3">Attendees</dt>
       <dd class="col-sm-9">{{ match_info.players }}</dd>
       <dt class="col-sm-3">Reserves</dt>
-      <dd class="col-sm-9">{{ match_info.reserves }}</dd> -->
+      <dd class="col-sm-9">{{ match_info.reserves }}</dd>
       <dt class="col-sm-3">Outcome</dt>
       <dd class="col-sm-9">{{ match_info.outcome }}</dd>
     </dl>
     <button
+      v-if="!signed_up"
       type="button"
       class="btn btn-primary"
       data-toggle="button"
@@ -35,41 +36,55 @@
       autocomplete="off"
       @click="signUpSolo"
     >
-      Sign Myself Up
+      Sign me up!
     </button>
-    <!-- <button
+    <button
+      v-if="signed_up"
       type="button"
       class="btn btn-secondary"
       data-toggle="button"
       aria-pressed="false"
       autocomplete="off"
+      @click="signUpSolo"
     >
-      Bring a Squad
-    </button> -->
+      I want my mommy!
+    </button>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "Single_Match",
   data() {
     return {
       match_info: "",
+      signed_up: false,
     };
   },
   methods: {
-    async signUpSolo() {
-      const signed_in = this.$store.getters["auth/userIsLoggedIn"];
-      if (!signed_in) {
+    getMatch() {
+      this.match_info = this.matches.find(
+        (element) => element._id === this.$route.params.id
+      );
+      if (this.match_info.players.find(player_id => player_id === this.discord_id)) {
+        this.signed_up = true;
+      } else {
+        this.signed_up = false;
+      }
+    },
+    signUpSolo() {
+      if (!this.$store.getters["auth/userIsLoggedIn"]) {
         this.$store.dispatch(
           "auth/update_last_message",
           "Please login before attempting to sign up!"
         );
       } else {
-        await this.$store.dispatch("match/signUpSolo", {
-          match_id: this.$route.params.id,
-          discord_id: this.$store.getters["auth/getAuthData"].discord_id,
-        });
+          this.$store.dispatch("matches/signUpSolo", {
+            match_id: this.$route.params.id,
+            discord_id: this.discord_id,
+          });
       }
     },
     isoFormatDMY(d) {
@@ -94,14 +109,16 @@ export default {
     },
   },
   computed: {
-    getMatches() {
-      return this.$store.getters["match/getMatchData"];
-    },
+    ...mapState("matches", ["matches"]),
+    ...mapState("auth", ["discord_id"]),
+  },
+  watch: { matches() {
+    this.getMatch()
+  }
   },
   created() {
-    this.match_info = this.getMatches.find(
-      (element) => element._id === this.$route.params.id
-    );
+    this.$store.dispatch("matches/loadMatches")
+    this.getMatch()
   },
 };
 </script>

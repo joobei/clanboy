@@ -30,12 +30,12 @@ export default {
   },
   name: "MatchList",
   computed: {
-    ...mapGetters("match", {
+    ...mapGetters("matches", {
       getMatches: "getMatchData",
     }),
   },
   methods: {
-    ...mapActions("match", {
+    ...mapActions("matches", {
       forceLoadMatches: "loadMatches",
     }),
   },

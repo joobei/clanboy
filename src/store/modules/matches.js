@@ -23,7 +23,7 @@ const actions = {
                 throw new Error(error);
             });
     },
-    async signUpSolo({ commit, dispatch, rootState }, sign_up_data) {
+    async signUpSolo({ dispatch, rootState }, sign_up_data) {
         const token = rootState.auth.token //pick up token from auth vuex
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
         await axios
@@ -34,16 +34,15 @@ const actions = {
                 }
             })
             .then(res => {
-                console.log("Axios response:")
-                console.log(res.data)
+                // console.log("Axios response:")
+                // console.log(res.data)
                 dispatch('loadMatches') //todo figure out why it doesn't work
                 dispatch('auth/update_last_message', res.data.response, {root:true})
             }).catch(error => {
-                console.log('Erorr in /signup to API')
-                console.log(error)
+                // console.log('Erorr in /signup to API')
+                // console.log(error)
                 dispatch('auth/update_last_message', error.response.data.error, {root:true})
             });
-        commit('BALALA') //todo update UI/store?
     }
 }
 
@@ -51,8 +50,7 @@ const mutations = {
     SET_MATCHES_TO_STATE(state, matches) {
         state.matches = matches;
         // console.log(state.matches)
-    },
-    BALALA() { console.log("Balala") }
+    }
 }
 
 export default {

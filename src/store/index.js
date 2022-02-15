@@ -4,7 +4,7 @@ import authModule from './modules/auth';
  
 const store = createStore({
   modules:{
-   match:matchModule,
+   matches:matchModule,
    auth:authModule
   },
   strict: true

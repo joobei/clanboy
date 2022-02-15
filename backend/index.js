@@ -37,6 +37,7 @@ app.use(function (req, res, next) {
 // friend: 912035056166527026
 const DEMOCRAT_ROLE = '912034805762363473'
 const ASPIRING_DEMOCRAT_ROLE = '931870587599601735'
+const MY_GUILD_ID = '911623996682932254' //move to env variable
 
 //these will need to be configured in .env
 const {
@@ -91,10 +92,10 @@ app.get("/auth/discord/callback", passport.authenticate("discord"),
     // console.log("In discord" + in_discord)
     if (in_discord) {
       //first fetch nickaname he uses in the guild
-      return axios.get(`https://discord.com/api/users/@me/guilds/911623996682932254/member`,
+      return axios.get(`https://discord.com/api/users/@me/guilds/${MY_GUILD_ID}/member`,
         { headers: { "Authorization": `Bearer ${_req.user.accessToken}` } }
       ).then(res => {
-       
+
         console.log(res.data.roles)
         const is_democrat = res.data.roles.find(role => (role === DEMOCRAT_ROLE || role === ASPIRING_DEMOCRAT_ROLE))
         if (is_democrat) {
@@ -155,8 +156,6 @@ const checkAuth = (req, res, next) => {
 }
 
 const check_permissions = (req, res, next) => {
-  console.log("Check permissions current user:")
-  console.log(req.current_user)
   const has_role = req.current_user.discord_guild_roles.find(role => (role === DEMOCRAT_ROLE || role === ASPIRING_DEMOCRAT_ROLE))
   if (has_role) {
     next()
@@ -180,22 +179,23 @@ app.post('/signup', checkAuth, check_permissions, (req, res) => {
       console.log(err);
     }
     else {
-      // console.log("Result : ", docs.players.find);
       if (docs.players.includes(req.body.discord_id)) {
-        res.status(200).json({ 'response': 'You are already signed up for this match!' })
-      }
-      else {
-        docs.players.push(req.body.discord_id)
-        Match.findByIdAndUpdate(match_id, docs, function (err, newdoc) {
+        docs.players.pop(req.body.discord_id)
+        Match.findByIdAndUpdate(match_id, docs, function (err) {
           if (err) {
             console.log(err);
           }
-          else {
-            console.log(newdoc)
-          }
+          res.status(200).json({ 'response': 'Fucking crybaby!' })
         })
-
-        res.status(200).json({ 'response': 'Thank you for signing up!' })
+      }
+      else {
+        docs.players.push(req.body.discord_id)
+        Match.findByIdAndUpdate(match_id, docs, function (err) {
+          if (err) {
+            console.log(err);
+          }
+          res.status(200).json({ 'response': 'Welcome on board Soldier!' })
+        })
       }
     }
   });

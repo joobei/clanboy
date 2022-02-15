@@ -20,7 +20,7 @@ export default {
   watch: {
     pendingMessage: function () { //todo this might backfire when pending message changes too quickly
       this.visible = this.pendingMessage
-      setTimeout(() => this.$store.dispatch('auth/clear_pending_message'),3000
+      setTimeout(() => this.$store.dispatch('auth/clear_pending_message'),this.timer
       );
     },
   },
