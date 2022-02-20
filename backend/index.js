@@ -16,7 +16,10 @@ const express = require("express"),
   passport = require("passport"),
   Strategy = require("@qgisk/passport-discord").Strategy,
   app = express(),
-  bodyParser = require('body-parser')
+  bodyParser = require('body-parser'),
+  cors = require('cors')
+
+app.use(cors())
 
 let userModel = require("./user.js")
 let Match = require("./match");
