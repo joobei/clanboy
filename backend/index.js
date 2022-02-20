@@ -25,12 +25,9 @@ let userModel = require("./user.js")
 let Match = require("./match");
 const { default: axios } = require("axios");
 
-app.use(function (req, res, next) {
-  console.log("host "+req.headers.host)
-  console.log("referer "+req.headers.referer)
-  console.log("CORS_ALLOW_FROM variable : "+CORS_ALLOW_FROM)
-  res.header("Access-Control-Allow-Headers", "authorization, Origin, X-Requested-With, Content-Type, Accept")
-  res.header("Access-Control-Allow-Origin", CORS_ALLOW_FROM)
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 app.use(bodyParser.json());
