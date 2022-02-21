@@ -26,7 +26,7 @@ let Match = require("./match");
 const { default: axios } = require("axios");
 
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin", CORS_ALLOW_FROM);
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
