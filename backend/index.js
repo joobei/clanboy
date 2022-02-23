@@ -4,7 +4,7 @@ require("dotenv").config();
 const {
   DISCORD_CLIENT_ID,
   DISCORD_CLIENT_SECRET,
-  VUE_APP_API_BASE_URL,
+  VUE_APP_BASE_URL,
   LISTEN_PORT,
   SESSION_SECRET,
   MY_CLAN_NAME,
@@ -68,7 +68,7 @@ passport.use(
     {
       clientID: DISCORD_CLIENT_ID,
       clientSecret: DISCORD_CLIENT_SECRET,
-      callbackURL: VUE_APP_API_BASE_URL + '/auth/discord',
+      callbackURL:  VUE_APP_BASE_URL+'/discord',
       scope: scopes,
       prompt: prompt,
     },
