@@ -16,16 +16,16 @@
       <dd class="col-sm-9">{{ match_info.map }}</dd>
       <dt class="col-sm-3">Date</dt>
       <dd class="col-sm-9">
-        {{ isoFormatDMY(parseISOString(match_info.date)) }}
+        {{ new Date(match_info.date).toLocaleString() }}
       </dd>
       <dt class="col-sm-3">Side</dt>
       <dd class="col-sm-9">{{ match_info.side }}</dd>
-      <dt class="col-sm-3">Attendees</dt>
+      <!-- <dt class="col-sm-3">Attendees</dt>
       <dd class="col-sm-9">{{ match_info.players }}</dd>
       <dt class="col-sm-3">Reserves</dt>
       <dd class="col-sm-9">{{ match_info.reserves }}</dd>
       <dt class="col-sm-3">Outcome</dt>
-      <dd class="col-sm-9">{{ match_info.outcome }}</dd>
+      <dd class="col-sm-9">{{ match_info.outcome }}</dd> -->
     </dl>
     <button
       v-if="!signed_up"
@@ -86,27 +86,7 @@ export default {
             discord_id: this.discord_id,
           });
       }
-    },
-    isoFormatDMY(d) {
-      function pad(n) {
-        return (n < 10 ? "0" : "") + n;
-      }
-      return (
-        pad(d.getUTCDate()) +
-        "/" +
-        pad(d.getUTCMonth() + 1) +
-        "/" +
-        d.getUTCFullYear() +
-        " - " +
-        d.getUTCHours() +
-        ":" +
-        d.getUTCMinutes()
-      );
-    },
-    parseISOString(s) {
-      var b = s.split(/\D+/);
-      return new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
-    },
+    }
   },
   computed: {
     ...mapState("matches", ["matches"]),

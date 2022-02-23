@@ -20,6 +20,7 @@ const actions = {
             .then(response => {
                 commit('SET_MATCHES_TO_STATE', response.data);
             }).catch(error => {
+                console.log(error)
                 throw new Error(error);
             });
     },
