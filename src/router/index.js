@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter } from 'vue-router'
 import MatchList from '@/components/Matchlist.vue'
 import Single_Match from '@/components/Single_Match.vue'
 import HomePage from '@/components/Home.vue'
