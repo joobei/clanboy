@@ -99,8 +99,6 @@ app.get("/auth/discord/callback", passport.authenticate("discord"),
       return axios.get(`https://discord.com/api/users/@me/guilds/${MY_GUILD_ID}/member`,
         { headers: { "Authorization": `Bearer ${_req.user.accessToken}` } }
       ).then(res => {
-
-        console.log(res.data.roles)
         const is_democrat = res.data.roles.find(role => (role === DEMOCRAT_ROLE || role === ASPIRING_DEMOCRAT_ROLE))
         if (is_democrat) {
           // console.log(res)
