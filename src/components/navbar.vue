@@ -26,10 +26,13 @@
           </li>
           <li class="nav-item"></li>
         </ul>
+        <ul>
+          <AlertRow/>
+        </ul>
         <ul class="navbar-nav ms-auto">
           <li class="nav-item" v-if="loginStatus">
             <router-link to="/dashboard" class="nav-link">
-              {{username}}</router-link
+              {{ username }}</router-link
             >
           </li>
           <li
@@ -54,13 +57,14 @@
 
 <script>
 import { mapState } from "vuex";
+import AlertRow from "@/components/AlertRow.vue";
 
 export default {
   name: "NavBar",
+  components: { AlertRow },
   data() {
     return {
-      url_path: process.env.VUE_APP_OAUTH_LINK
-      
+      url_path: process.env.VUE_APP_OAUTH_LINK,
     };
   },
   methods: {
@@ -70,6 +74,6 @@ export default {
       });
     },
   },
-  computed: mapState("auth", ["username","loginStatus"]),
+  computed: mapState("auth", ["username", "loginStatus"]),
 };
 </script>

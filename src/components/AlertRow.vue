@@ -1,5 +1,5 @@
 <template>
-  <div class="row" v-if="visible" @toast-updated="makeVisible">
+  <div class="row" v-if="visible">
     <div class="alert alert-danger" style="width: 100%" align="center">
       {{ lastMessage }}
     </div>

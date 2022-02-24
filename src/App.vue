@@ -1,23 +1,19 @@
 <template>
   <div>
-    <NavBar/>
-    <AlertRow/>
+    <NavBar />
     <router-view></router-view>
   </div>
-
 </template>
 
 <script>
-import NavBar from "@/components/navbar.vue"
-import AlertRow from "@/components/AlertRow.vue"
+import NavBar from "@/components/navbar.vue";
 
 export default {
   name: "App",
-  components: { NavBar, AlertRow },
+  components: { NavBar },
   data() {
-    return {
-    }
-  }
+    return {};
+  },
 };
 </script>
 
