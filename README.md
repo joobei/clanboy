@@ -28,11 +28,9 @@ This allows you to quickly see your changes in a dev environment.
 ```
 npm run build
 ```
-*backend/* directory contains the express.js backend server that talks to a MongoDB. That server needs to be first of all configured with a mongodb connection string that you will place in a keys.txt file alongside server.js. You can then run the back-end server with:
+*backend/* directory contains the express.js backend server that talks to a MongoDB. That server needs to be first of all configured with a mongodb connection string that you will place in an .env file alongside index.js. You can then run the back-end server with:
 ```
 node server.js
 ```
-
-I need to post the mongo-db schema or a setup file. If you're in need for this drop me an email.
 
 Feel free to open an issue if you have any questions/issues and/or are interested in helping with development.
