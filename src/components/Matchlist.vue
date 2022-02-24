@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h3 style="margin-top: 20px">Upcoming Match</h3>
+    <h3 style="margin-top: 20px">Upcoming Matches</h3>
     <div class="spinner-border .m-5" role="status" v-if="loading"></div>
     <dl class="row" v-if="!loading">
       <MatchListItem
