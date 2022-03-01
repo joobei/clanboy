@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <h2>Please wait while you are being logged in</h2>
+    <div class="spinner-border .m-5" role="status"></div>
   </div>
 </template>
 <script>
