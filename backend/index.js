@@ -93,14 +93,11 @@ app.use(passport.session());
 app.get("/auth/discord/callback", passport.authenticate("discord"),
   (_req, _res) => {
     const in_discord = _req.user.guilds.find(x => x.name === MY_CLAN_NAME)
-    // console.log("In discord" + in_discord)
     if (in_discord) {
       //first fetch nickaname he uses in the guild
       return axios.get(`https://discord.com/api/users/@me/guilds/${MY_GUILD_ID}/member`,
         { headers: { "Authorization": `Bearer ${_req.user.accessToken}` } }
       ).then(res => {
-
-        console.log(res.data.roles)
         const is_democrat = res.data.roles.find(role => (role === DEMOCRAT_ROLE || role === ASPIRING_DEMOCRAT_ROLE))
         if (is_democrat) {
           // console.log(res)
@@ -123,7 +120,6 @@ app.get("/auth/discord/callback", passport.authenticate("discord"),
               console.log(err)
             }
             else {
-              console.log("Updated User : ", doc);
               _res.status(200).json({
                 username: doc.display_username,
                 discord_id: doc.discord_id,
