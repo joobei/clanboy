@@ -1,5 +1,57 @@
 require("dotenv").config();
 
+
+//========== BOT =========== //
+
+function update_discord_text() {
+  var text = ""
+  Match.find({}, (error, result) => {
+    result.sort(dateComparisonCallback) //sort by date
+    result.forEach(res => {
+      text += res.vs + "\n"
+      const match_date = new Date(res.date.toString())
+      // console.log(match_date)
+      text += "<t:" + match_date.valueOf().toString().slice(0,-3) + ">\n"
+      text += res.map + "\n"
+      if (res.players.length != 0) {
+        text += "===== ROSTER ======\n"
+      }
+      res.players.forEach(player => {
+        text += "<@" + player + ">\n"
+      })
+      text += "===================\n\n\n"
+    })
+    console.log(text)
+    client.channels.cache.get('943271167962259456').messages.fetch('949795853797834752').then(
+      msg => msg.edit(text)
+    )
+  })
+}
+
+//compares results based on their date property
+const dateComparisonCallback = (arrayItemA, arrayItemB) => {
+  if (arrayItemA.date.valueOf() < arrayItemB.date.valueOf()) {
+    return -1
+  }
+  if (arrayItemA.date.valueOf() > arrayItemB.date.valueOf()) {
+    return 1
+  }
+  return 0
+}
+
+const Discord = require("discord.js")
+const client = new Discord.Client({
+  intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES]
+})
+
+//949795853797834752
+client.on("ready", () => {
+  console.log(`Logged in as ${client.user.tag}!`)
+  update_discord_text()
+})
+
+client.login(process.env.BOT_TOKEN)
+
 //these will need to be configured in .env
 const {
   DISCORD_CLIENT_ID,
@@ -25,7 +77,7 @@ let userModel = require("./user.js")
 let Match = require("./match");
 const { default: axios } = require("axios");
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", CORS_ALLOW_FROM);
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
@@ -68,7 +120,7 @@ passport.use(
     {
       clientID: DISCORD_CLIENT_ID,
       clientSecret: DISCORD_CLIENT_SECRET,
-      callbackURL:  VUE_APP_BASE_URL+'/discord',
+      callbackURL: VUE_APP_BASE_URL + '/discord',
       scope: scopes,
       prompt: prompt,
     },
@@ -167,7 +219,7 @@ const check_permissions = (req, res, next) => {
 
 app.get("/matches", (req, res) => {
   Match.find({}, (error, result) => {
-    res.json(result)
+    res.json(result.sort(dateComparisonCallback))
   })
 })
 
@@ -198,7 +250,8 @@ app.post('/signup', checkAuth, check_permissions, (req, res) => {
         })
       }
     }
-  });
+  })
+  update_discord_text()
 })
 
 app.listen(LISTEN_PORT, (err) => {
@@ -206,3 +259,4 @@ app.listen(LISTEN_PORT, (err) => {
 
   console.log(`Listening at port ${LISTEN_PORT}`);
 });
+
