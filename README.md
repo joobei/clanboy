@@ -1,6 +1,5 @@
 | :exclamation:  Project is in pre-alpha stage. Seeking collaborators   |
 |-----------------------------------------------------------------------|
-
 # Clanboy
 
 Clanboy is a clan management website initially designed for Hell Let Loose, can be adapted to any clan.
@@ -34,3 +33,7 @@ node server.js
 ```
 
 Feel free to open an issue if you have any questions/issues and/or are interested in helping with development.
+
+[https://deemos.club]
+
+<img src="https://user-images.githubusercontent.com/2638631/157040495-6209d05b-6c7d-4e03-8572-99cc000a9298.png" width="150px" alt="Deemos community logo"/>
